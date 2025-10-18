@@ -1,0 +1,1433 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Turizm Helper — Rusiya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ/2KjYI0dE83eE6I0p8XqM7l+z8x8R9E7/Q8x8R7L5P4Q2+uT1g2H3G4N4P5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* RUSİYA ÜÇÜN RƏNGLƏR (Ağ, Mavi, Qırmızı - Bayraqdan) */
+    :root{
+      --bg:#050d1a;
+      --card:#0d1118; 
+      --muted:#9aa4b2;
+      --accent:#0033a0; /* Mavi aksent (Rusiya) */
+      --glass: rgba(255,255,255,0.05);
+      --shadow-color: rgba(0,0,0,0.7);
+      --danger: #d52b1e; /* Qırmızı */
+      --success: #10b981; 
+      --warning: #f59e0b; 
+      --info: #3b82f6; 
+      --play-btn-bg: #4a4a4a; 
+      --play-btn-color: #fff; 
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#03080e,#071523);color:#e6eef6;padding:18px}
+    .wrap{max-width:1100px;margin:0 auto}
+    header{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        margin-bottom:24px;
+        padding:8px 0; 
+        position: relative;
+    }
+
+    .return-home {
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-decoration: none;
+        color: #000;
+        padding: 10px 15px;
+        border-radius: 8px;
+        background: #ffffff; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: 0.2s ease-out;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        margin-top: 10px; 
+        font-size: 18px; 
+        font-weight: bold;
+    }
+    .return-home:hover {
+        background: #f0f0f0;
+        color: var(--accent);
+        transform: translateY(-2px);
+    }
+    .return-home i {
+        font-size: 20px; 
+    }
+    
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#d52b1e);display:flex;align-items:center;justify-content:center;color:#e6eef6;font-weight:800;font-size:28px;
+          box-shadow: 0 0 15px rgba(0, 51, 160, 0.4);}
+    h1{margin:0;font-size:28px}
+    .meta{color:var(--muted);font-size:14px}
+
+    /* tabs (Şəkildəki kimi yalnız ikon və text) */
+    .tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;
+          background: #111; /* Bütün tablar üçün arxa fon */
+          border-radius: 12px;
+          padding: 8px;}
+    .tab{padding:10px 16px;background:transparent;border-radius:8px;cursor:pointer;
+          color:#e6eef6;font-weight:500;
+          transition:0.2s ease-out;
+          display:flex; align-items:center; gap:8px;} /* İkonlar yoxdursa, text mərkəzdə qalır */
+    .tab:hover{background:rgba(255,255,255,0.08);color:#e6eef6;}
+    .tab.active{background:linear-gradient(135deg, #d52b1e, var(--accent)); 
+          color:#fff;font-weight:600;
+          box-shadow: 0 0 10px rgba(0, 51, 160, 0.5);
+          transform:translateY(0)}
+    .tab.active i{color:#fff;}
+
+    /* tab content base */
+    .tab-content{background:var(--card);padding:24px;border-radius:16px;
+          box-shadow: 0 10px 30px var(--shadow-color), 0 0 5px rgba(255,255,255,0.05);
+          margin-bottom:24px;
+          transition:opacity 0.3s ease-in-out;}
+    .tab-content.hidden{display:none}
+    .tab-content h3{text-align: center; margin-bottom: 24px; font-size: 24px; font-weight: 700; color: #fff; padding-bottom: 0; border: none;}
+    .small-meta{color:var(--muted);font-size:13px;margin-top:6px}
+
+    /* Ümumi (Info Card) styles - Şəkilə uyğun saxlanıldı */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .info-card {
+      background: #111; /* Kart üçün tünd fon */
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.2s ease-out;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    .info-card:hover {
+      background: #1a1a1a;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+    }
+    .info-icon {
+      font-size: 32px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .info-card strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .info-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Yerlər layout - Şəkilə uyğun */
+    .places-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px} 
+    .place-card, .hotel-card, .restaurant-card { /* Restoran kartı əlavə edildi */
+        background:#111;
+        padding:0;
+        border-radius:12px;
+        overflow: hidden;
+        transition:0.2s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        border: 1px solid #222;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .place-card:hover, .hotel-card:hover, .restaurant-card:hover {transform:translateY(-5px);box-shadow: 0 10px 25px rgba(0,0,0,0.6);}
+    .place-thumb, .hotel-thumb, .restaurant-thumb {width:100%;height:180px;background:#081423;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;position:relative;}
+    .place-thumb img, .hotel-thumb img, .restaurant-thumb img {width:100%; height: 100%; object-fit: cover; opacity: 0.8;}
+    .place-info, .hotel-info, .restaurant-info {padding:12px 12px 0 12px; flex-grow: 1; position:relative;}
+    .place-title, .hotel-title, .restaurant-title {font-weight:700;font-size:18px;margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center;}
+    .place-title .price, .hotel-title .price, .restaurant-title .price {font-size: 16px; color: var(--accent);}
+    .place-meta, .hotel-meta, .restaurant-meta {color:var(--muted);font-size:13px;margin-bottom: 8px;}
+    .rating{background:var(--accent);color:#000;padding:6px 10px;border-radius:0 0 0 10px;font-weight:700;position:absolute;top:0;right:0;font-size:15px; z-index: 10;}
+    .place-tags span, .hotel-tags span, .restaurant-tags span {background: #222; color: #fff; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px; display: inline-block; margin-top: 4px;}
+
+    /* DƏYİŞİKLİK: Ətraflı/Locasiya düymələri */
+    .place-actions, .hospital-actions, .hotel-actions, .restaurant-actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 12px 12px 12px;
+        border-top: 1px solid #1a1a1a;
+        gap: 8px; /* Düymələr arasında boşluq */
+    }
+    .action-btn {
+        background: var(--accent);
+        color: #fff;
+        padding: 8px 10px; /* Daha yığcam padding */
+        border-radius: 6px;
+        font-size: 13px; /* Daha yığcam font ölçüsü */
+        font-weight: 600;
+        transition: 0.15s;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        align-items: center;
+        flex-grow: 1; 
+        justify-content: center; 
+        margin: 0;
+    }
+    .action-btn i {
+        margin-right: 4px; /* İkon və mətn arasında daha az boşluq */
+    }
+    .action-btn.location {
+        background: #222;
+        border: 1px solid var(--muted);
+        color: var(--muted);
+        flex-grow: 0.6; /* Location düyməsi daha kiçik */
+    }
+    .action-btn:hover {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+
+    /* Yeməklər grid */
+    .food-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+    .food-card{background:#111;padding:0;border-radius:12px;text-align:left;overflow: hidden;
+          transition:0.2s;box-shadow: 0 4px 15px rgba(0,0,0,0.4);border: 1px solid #222; cursor: pointer;}
+    .food-card:hover{transform:translateY(-5px);box-shadow: 0 10px 25px rgba(0,0,0,0.6);}
+    .food-thumb{width:100%;height:180px;background:#081423;display:flex;align-items:center;justify-content:center;color:var(--muted);overflow: hidden;}
+    .food-thumb img {width:100%; height: 100%; object-fit: cover; opacity: 0.7;}
+    .food-info {padding: 12px;}
+    .food-name{font-weight:700;margin-top:0;font-size:18px}
+    .food-desc{color:var(--muted);font-size:13px;margin-top:4px}
+    .food-price{margin-top:8px;font-weight:700;color:var(--success); background: #1a1a1a; padding: 4px 8px; border-radius: 6px; display: inline-block; font-size: 13px;}
+    .food-tags span {background: #222; color: #fff; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px; display: inline-block; margin-top: 8px;}
+
+
+    /* Hospitals 2 columns */
+    .hosp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:16px}
+    .hospital{background:#111;padding:20px;border-radius:12px;
+          border: 1px solid #222;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+          display: flex; 
+          gap: 16px; 
+          align-items: flex-start;} 
+    .hospital-thumb { 
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        background: #222;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .hospital-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .hospital-body { 
+        flex-grow: 1;
+    }
+    .hospital strong{display:flex;align-items:center;margin-bottom:12px;font-size:18px; color: var(--danger);}
+    .hospital strong i {font-size: 20px; margin-right: 10px; color: var(--danger);}
+    .hospital .small-meta{color:var(--muted);font-size:14px;margin-bottom: 8px;}
+    .hospital .small-meta strong {display: inline; font-size: 14px; color: #fff; font-weight: 500;}
+    .emergency-number {background: var(--danger); color: #fff; padding: 4px 10px; border-radius: 6px; font-weight: 700; display: inline-block; margin-top: 4px; margin-bottom: 12px;}
+    .svc-tags span {background: #222; color: var(--accent); padding: 4px 10px; border-radius: 6px; font-size: 12px; margin-right: 6px; display: inline-block; margin-top: 8px; border: 1px solid rgba(6, 182, 212, 0.4);}
+
+
+    /* MODAL (Yeni pəncərə) üçün stillər */
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1000; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.8); 
+        padding-top: 60px;
+    }
+    .modal-content {
+        background-color: var(--card);
+        margin: 5% auto; 
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 16px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close-btn:hover,
+    .close-btn:focus {
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .modal-body p {
+        color: var(--muted);
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    .modal-body h4 {
+        color: var(--accent);
+        margin-top: 0;
+        border-bottom: 1px solid #222;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
+    .reservation-form input, .reservation-form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        border: 1px solid #333;
+        background: #1a1a1a;
+        color: #fff;
+        font-size: 14px;
+    }
+    .reserve-btn, .confirm-btn {
+        background: var(--success);
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: 0.2s;
+    }
+    .reserve-btn:hover, .confirm-btn:hover {
+        background: #159b6f;
+    }
+    
+    /* Rezervasiya Təsdiq Mesajı */
+    #reservationMessage {
+        padding: 15px;
+        margin-top: 15px;
+        background: var(--success);
+        color: #fff;
+        border-radius: 8px;
+        text-align: center;
+        display: none;
+        font-weight: 600;
+    }
+
+    /* DİL - Çərçivəli stil (Yeniləndi) */
+    .vocab-grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .vocab-card {
+      background: #1a1a1a;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #222;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* İki sütun */
+      gap: 12px;
+      align-items: center;
+    }
+    .vocab-item-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-right: 10px;
+        font-size: 14px; 
+    }
+    .vocab-item-group:nth-child(2) {
+        border-left: 1px solid #222;
+        padding-left: 15px;
+        height: 100%;
+        display: flex;
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center;
+    }
+    .vocab-item-group strong {
+        font-size: 16px; 
+        color: #fff;
+    }
+    .vocab-item-group small {
+        color: var(--muted);
+        font-size: 12px;
+    }
+    .vocab-category {
+        background: #222;
+        color: var(--muted);
+        padding: 3px 6px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+    .vocab-play-btn {
+        background: var(--accent);
+        color: #000;
+        border: none;
+        padding: 6px 10px; 
+        border-radius: 4px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.15s;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    /* Viza, Nəqliyyat, Təhlükəsizlik üçün orjinal strukturun bərpası */
+    /* Qutuların iki sütunlu olması üçün tənzimləmə */
+    .viza-grid, .transport-container, .safety-top {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 16px;
+    }
+    /* Məsləhət və Fırıldaqlar bölmələri üçün də eyni iki sütunlu qrid tətbiq edilir */
+    .safety-mid, .fraud-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+    }
+
+    .viza-card h4, .transport-card h4, .safety-card-main h4 {
+        border-bottom: 1px solid #222;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+        font-size: 18px; /* Başlıq ölçüsü bərpa edilir */
+    }
+    .viza-list li, .list li, .local-laws-list li, .emergency-list li {
+        text-align: left;
+        padding: 4px 0;
+        font-size: 14px;
+    }
+    .viza-list strong, .list li strong {
+        font-weight: 600;
+        color: #fff;
+    }
+    .safety-mid-card {
+        background: #111; /* Kart fonu bərpa edilir */
+        border: 1px solid #222;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+    .safety-mid-card h4 {
+        margin-top: 0;
+        font-size: 16px;
+    }
+    .fraud-item {
+        border-left: 3px solid var(--danger);
+        padding-left: 10px;
+    }
+
+    /* Responsivlik dəyişiklikləri */
+    @media(max-width:900px){
+      .places-grid{grid-template-columns:repeat(2,1fr)} 
+      .food-grid{grid-template-columns:repeat(2,1fr)} 
+      .hosp-grid{grid-template-columns:1fr}
+      .viza-grid, .transport-container, .safety-top, .safety-mid, .fraud-grid {grid-template-columns: 1fr;}
+      .vocab-grid-cards {grid-template-columns: repeat(1, 1fr);} /* Tablet görünüşdə bir sütun */
+      .vocab-item-group:nth-child(2) {border-left: none; padding-left: 10px; padding-top: 10px;}
+      .place-actions, .hospital-actions, .hotel-actions, .restaurant-actions {flex-wrap: wrap;}
+      .place-actions button, .hotel-actions button, .restaurant-actions button {flex-grow: 1; min-width: 100px; margin-bottom: 5px;}
+    }
+    @media(max-width:520px){
+      .places-grid{grid-template-columns:1fr} 
+      .food-grid{grid-template-columns:1fr} 
+      .tabs {padding: 4px;}
+      .hospital {flex-direction: column; align-items: stretch;}
+      .hospital-thumb {width: 100%; height: 120px;}
+      .modal-content {width: 95%; margin: 30% auto;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <a href="index.html" class="return-home">
+        <i class="fas fa-arrow-left"></i>
+        <- 
+    </a>
+
+    <header>
+      <div style="display:flex;gap:12px;align-items:center; width: 100%; justify-content: center;">
+        <div class="logo">🇷🇺</div> 
+        <div>
+          <h1>Rusiya</h1>
+          <div class="meta">Paytaxt: Moskva • Dil: Rusca • Valyuta: Rubl (RUB)</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="tabs" role="tablist" aria-label="Rusiya kateqoriyaları">
+      <div class="tab active" data-tab="umumi">Ümumi</div>
+      <div class="tab" data-tab="yerler">Yerlər</div>
+      <div class="tab" data-tab="yemekler">Yeməklər</div>
+      <div class="tab" data-tab="restoranlar">Restoranlar</div> 
+      <div class="tab" data-tab="oteller">Hotellər</div> 
+      <div class="tab" data-tab="xestexanalar">Xəstəxanalar</div>
+      <div class="tab" data-tab="viza">Viza</div>
+      <div class="tab" data-tab="neqliyat">Nəqliyyat</div>
+      <div class="tab" data-tab="dil">Dil</div>
+      <div class="tab" data-tab="tehlukesizlik">Təhlükəsizlik</div>
+    </div>
+
+    <section id="umumi" class="tab-content">
+      <h3>Rusiya haqqında ümumi məlumat</h3>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-icon" style="color: var(--info);"><i class="fas fa-info-circle"></i></div>
+          <strong>Ümumi Məlumat</strong>
+          <small>Ölkə haqqında əsas faktlar və məlumatlar</small>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon" style="color: #f59e0b;"><i class="fas fa-clock"></i></div>
+          <strong id="timeDisplay">Yerli Saat (Moskva)</strong>
+          <small>UTC+3 (Bakıdan 1 saat geri)</small>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon" style="color: var(--danger);"><i class="fas fa-phone-alt"></i></div>
+          <strong>Təcili Nömrələr</strong>
+          <small>112 (Ümumi Təcili Xidmət)</small>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon" style="color: var(--success);"><i class="fas fa-money-bill-wave"></i></div>
+          <strong>Valyuta</strong>
+          <small>Rubl (RUB)</small>
+        </div>
+      </div>
+
+      <div style="text-align:center; color:var(--muted); font-size:15px; margin-top: 10px;">
+          Bu səhifədə Rusiya haqqında səyahət üçün lazım olan bütün məlumatları tapa bilərsiniz.
+      </div>
+
+    </section>
+
+    <section id="yerler" class="tab-content hidden">
+      <h3>Yerlər</h3>
+      <div class="places-grid">
+        
+        <div class="place-card" data-name="Qırmızı Meydan" data-restaurant="Café Pushkin" data-restaurant-location="http://googleusercontent.com/maps/place/Cafe+Pushkin">
+          <div class="rating">4.8</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Qırmızı Meydan şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Qırmızı Meydan <span class="price">Pulsuz</span></div>
+            <div class="place-meta">Moskvanın mərkəzi və əsas simvolu.</div>
+            <div class="place-tags">
+              <span>Açıq</span>
+              <span>Moskva</span>
+              <span>Tarixi</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Red+Square')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" onclick="openReservationModal('Café Pushkin')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Qırmızı Meydan Kremlə, Vasili Blajenni Katedralına və QUM Ticarət Mərkəzinə ev sahibliyi edən Moskvanın əsas meydanıdır.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Vasili Blajenni Katedralı" data-restaurant="White Rabbit" data-restaurant-location="http://googleusercontent.com/maps/place/White+Rabbit+Restaurant">
+          <div class="rating">4.7</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Vasili Blajenni Katedralı şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Vasili Blajenni Katedralı <span class="price">1000 RUB</span></div>
+            <div class="place-meta">Çoxrəngli soğanvari günbəzləri ilə məşhurdur.</div>
+            <div class="place-tags">
+              <span>Mədəniyyət</span>
+              <span>Moskva</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Saint+Basil's+Cathedral')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" onclick="openReservationModal('White Rabbit')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Vasili Blajenni Katedralı, Qırmızı Meydanın cənubunda yerləşir və Rusiyanın ən tanınan memarlıq abidələrindən biridir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Ermitaj Muzeyi" data-restaurant="Palkin Restaurant" data-restaurant-location="http://googleusercontent.com/maps/place/Palkin">
+          <div class="rating">4.8</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Ermitaj Muzeyi şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Ermitaj Muzeyi <span class="price">800 RUB</span></div>
+            <div class="place-meta">Dünyanın ən böyük incəsənət muzeylərindən biri.</div>
+            <div class="place-tags">
+              <span>Muzey</span>
+              <span>Sankt-Peterburq</span>
+              <span>Sənət</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/State+Hermitage+Museum')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" onclick="openReservationModal('Palkin Restaurant')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Ermitaj Muzeyi Sankt-Peterburqda yerləşir və incəsənət və mədəniyyət obyektlərinin geniş kolleksiyasını özündə cəmləşdirir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Moskva Kremli" data-restaurant="Dr. Zhivago" data-restaurant-location="http://googleusercontent.com/maps/place/Dr.+Zhivago+Restaurant">
+          <div class="rating">4.7</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Moskva Kremli şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Moskva Kremli <span class="price">700 RUB</span></div>
+            <div class="place-meta">Moskvanın tarixi istehkamlı mərkəzi.</div>
+            <div class="place-tags">
+              <span>Tarixi</span>
+              <span>Moskva</span>
+              <span>Sarayı</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Moscow+Kremlin')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" onclick="openReservationModal('Dr. Zhivago Restaurant')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Moskva Kremli Rusiya hökumətinin iqamətgahı və tarixi saray kompleksidir. Beş meydan və 20 qülləni əhatə edir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+        
+        <div class="place-card" data-name="Peterhof Sarayı" data-restaurant="Terrassa Restaurant" data-restaurant-location="http://googleusercontent.com/maps/place/Terrassa+Restaurant">
+          <div class="rating">4.6</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Peterhof Sarayı şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Peterhof Sarayı <span class="price">1000 RUB</span></div>
+            <div class="place-meta">Rusiyanın Versal adlanan saray və bağ kompleksi.</div>
+            <div class="place-tags">
+              <span>Sankt-Peterburq</span>
+              <span>Saray</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Peterhof+Palace')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" onclick="openReservationModal('Terrassa Restaurant')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Peterhof Sarayı və bağları, xüsusilə də möhtəşəm fəvvarələri ilə məşhurdur. Sankt-Peterburqun yaxınlığında yerləşir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Kazan Katedralı" data-restaurant="Ginza Project" data-restaurant-location="http://googleusercontent.com/maps/place/Ginza+Project+Restaurant">
+          <div class="rating">4.8</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Kazan Katedralı şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Kazan Katedralı <span class="price">Pulsuz</span></div>
+            <div class="place-meta">Sankt-Peterburqdakı Rus Pravoslav Kilsəsi.</div>
+            <div class="place-tags">
+              <span>Kilsə</span>
+              <span>Sankt-Peterburq</span>
+              <span>Müqəddəs</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Kazan+Cathedral')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" onclick="openReservationModal('Ginza Project')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Kazan Katedralı Sankt-Peterburqun əsas pravoslav kilsəsidir. Roma Müqəddəs Pyotr Bazilikası ilə bənzərliyinə görə məşhurdur.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <section id="yemekler" class="tab-content hidden">
+      <h3>Yeməklər (Milli Mətbəx)</h3>
+      <p style="color:var(--muted); text-align: center; margin-bottom: 24px;">Rusiyanın məşhur milli yeməklərindən seçmələr.</p>
+
+      <div class="food-grid" role="list">
+        <div class="food-card" role="listitem" data-name="Borş (Borscht)">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Borş şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Borş</div>
+            <div class="food-desc">Ət və ya göbələkli qırmızı çuğundur şorbası.</div>
+            <div class="food-tags">
+              <span>Şorba</span>
+              <span>Çuğundur</span>
+            </div>
+            <div class="food-price">300–600 RUB</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Pelmeni">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Pelmeni şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Pelmeni</div>
+            <div class="food-desc">Nazik xəmirdən hazırlanmış kiçik ətli düşbərə.</div>
+            <div class="food-tags">
+              <span>Ət</span>
+              <span>Düşbərə</span>
+            </div>
+            <div class="food-price">400–800 RUB</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Blinı (Bliny)">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Blinı şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Blinı</div>
+            <div class="food-desc">Rus krepi (kürü, qatıq və ya mürəbbə ilə yeyilir).</div>
+            <div class="food-tags">
+              <span>Şirin</span>
+              <span>Yüngül</span>
+            </div>
+            <div class="food-price">250–500 RUB</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Beef Stroqanov">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Beef Stroqanov şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Beef Stroqanov</div>
+            <div class="food-desc">Ət zolaqları, smetan və göbələkli sosda.</div>
+            <div class="food-tags">
+              <span>Ət</span>
+              <span>Klassik</span>
+            </div>
+            <div class="food-price">700–1200 RUB</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Kvas">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Kvas şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Kvas</div>
+            <div class="food-desc">Çörəkdən hazırlanan ənənəvi alkoqolsuz içki.</div>
+            <div class="food-tags">
+              <span>İçki</span>
+              <span>Çörək</span>
+            </div>
+            <div class="food-price">100–250 RUB</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="restoranlar" class="tab-content hidden">
+      <h3>Ən Yaxşı Restoranlar (Online Rezervasiya)</h3>
+      <div class="places-grid">
+        
+        <div class="restaurant-card" data-name="White Rabbit" data-location="http://googleusercontent.com/maps/place/White+Rabbit+Restaurant">
+          <div class="rating">4.8</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="White Rabbit şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">White Rabbit <span class="price">Fine Dining</span></div>
+            <div class="restaurant-meta">Dünyanın ən yaxşı 50 restoranından biri, Moskva.</div>
+            <div class="restaurant-tags">
+              <span>Lüks</span>
+              <span>Müasir Rus</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/White+Rabbit+Restaurant')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="White Rabbit, qeyri-adi mənzərəsi və müasir Rusiya mətbəxi ilə tanınan elit restorandır.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="restaurant-card" data-name="Café Pushkin" data-location="http://googleusercontent.com/maps/place/Cafe+Pushkin">
+          <div class="rating">4.7</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Café Pushkin şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Café Pushkin <span class="price">Yüksək</span></div>
+            <div class="restaurant-meta">Klassik Rusiya mətbəxi, 19-cu əsr atmosferi.</div>
+            <div class="restaurant-tags">
+              <span>Klassik</span>
+              <span>Rusiya</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Cafe+Pushkin')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Café Pushkin, 19-cu əsr zadəganlarının üslubunda bərpa edilmiş lüks restorandır. Klassik Rus yeməkləri ilə məşhurdur.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="restaurant-card" data-name="Palkin Restaurant" data-location="http://googleusercontent.com/maps/place/Palkin">
+          <div class="rating">4.6</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Palkin şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Palkin Restaurant <span class="price">Elit</span></div>
+            <div class="restaurant-meta">Sankt-Peterburqda incə Rusiya-Avropa mətbəxi.</div>
+            <div class="restaurant-tags">
+              <span>Lüks</span>
+              <span>Avropa</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Palkin')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Palkin Restaurant, Sankt-Peterburqda ənənəvi Rusiya və Avropa mətbəxini təklif edən tarixi bir məkandır.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+        
+        <div class="restaurant-card" data-name="Dr. Zhivago" data-location="http://googleusercontent.com/maps/place/Dr.+Zhivago+Restaurant">
+          <div class="rating">4.5</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Dr. Zhivago şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Dr. Zhivago <span class="price">Orta</span></div>
+            <div class="restaurant-meta">Müasir Rusiya interyeri, Qırmızı Meydan yaxınlığında.</div>
+            <div class="restaurant-tags">
+              <span>Müasir</span>
+              <span>Rusiya</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Dr.+Zhivago+Restaurant')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Dr. Zhivago, lüks, lakin klassik Rus restoranıdır. Qırmızı Meydan və Kremlə baxan mənzərəsi var.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="oteller" class="tab-content hidden">
+      <h3>Ən Populyar Hotellər</h3>
+      <div class="places-grid">
+        
+        <div class="hotel-card" data-name="Four Seasons Hotel Moscow" data-location="http://googleusercontent.com/maps/place/Four+Seasons+Hotel+Moscow">
+          <div class="rating">5.0</div>
+          <div class="place-thumb">
+             <img src="URL BURA" alt="Four Seasons Moscow şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Four Seasons Hotel Moscow <span class="price">Lüks</span></div>
+            <div class="place-meta">Qırmızı Meydanın yaxınlığında, elit.</div>
+            <div class="place-tags">
+              <span>5 Ulduz</span>
+              <span>Moskva</span>
+            </div>
+          </div>
+          <div class="hotel-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Four+Seasons+Hotel+Moscow')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Moskvanın ən prestijli otellərindən biri. Kremlə və Qırmızı Meydana bir neçə dəqiqəlik məsafədədir." data-price="10000+ RUB / Gecə">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="hotel-card" data-name="Belmond Grand Hotel Europe" data-location="http://googleusercontent.com/maps/place/Belmond+Grand+Hotel+Europe">
+          <div class="rating">4.8</div>
+          <div class="place-thumb">
+             <img src="URL BURA" alt="Belmond Grand Hotel şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Belmond Grand Hotel Europe <span class="price">Elit</span></div>
+            <div class="place-meta">Sankt-Peterburqda tarixi lüks otel.</div>
+            <div class="place-tags">
+              <span>5 Ulduz</span>
+              <span>Sankt-Peterburq</span>
+            </div>
+          </div>
+          <div class="hotel-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Belmond+Grand+Hotel+Europe')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="19-cu əsrdə tikilmiş tarixi oteldir. Ermitaj Muzeyinə yaxın yerləşir." data-price="8000+ RUB / Gecə">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="hotel-card" data-name="Metropol Hotel" data-location="http://googleusercontent.com/maps/place/Metropol+Hotel">
+          <div class="rating">4.6</div>
+          <div class="place-thumb">
+             <img src="URL BURA" alt="Metropol Hotel şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Metropol Hotel <span class="price">Standart</span></div>
+            <div class="place-meta">Moskvada məşhur tarixi otel.</div>
+            <div class="place-tags">
+              <span>5 Ulduz</span>
+              <span>Moskva</span>
+            </div>
+          </div>
+          <div class="hotel-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Metropol+Hotel+Moscow')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Moskvanın teatr meydanında yerləşən Metropol Hotel, Bəyaz Rus memarlığının nümunəsidir." data-price="6000+ RUB / Gecə">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="xestexanalar" class="tab-content hidden">
+      <h3>Xəstəxanalar</h3>
+      <div class="hosp-grid">
+        <div class="hospital">
+            <div class="hospital-thumb">
+                <img src="URL BURA" alt="Sklifosovsky Research Institute Şəkli">
+            </div>
+            <div class="hospital-body">
+                <strong><i class="fas fa-hospital-alt"></i> Sklifosovsky Təcili Yardım</strong>
+                <div class="small-meta"><strong>Ünvan:</strong> Moskva, Bolshaya Sukharevskaya pl. 3</div>
+                <div class="small-meta"><strong>Telefon:</strong> +7 495 621 43 32</div>
+                <div class="small-meta">Təcili: <span class="emergency-number">103/112</span></div>
+                <div class="svc-tags">
+                    <span>Təcili yardım</span>
+                    <span>Travmatologiya</span>
+                    <span>Cərrahiyyə</span>
+                </div>
+            </div>
+            <div class="hospital-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Sklifosovsky+Research+Institute')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+            </div>
+        </div>
+
+        <div class="hospital">
+            <div class="hospital-thumb">
+                <img src="URL BURA" alt="American Medical Center Şəkli">
+            </div>
+            <div class="hospital-body">
+                <strong><i class="fas fa-hospital-alt"></i> American Medical Center</strong>
+                <div class="small-meta"><strong>Ünvan:</strong> Sankt-Peterburq, Moika Qırağı 71</div>
+                <div class="small-meta"><strong>Telefon:</strong> +7 812 740 20 90</div>
+                <div class="small-meta">Təcili: <span class="emergency-number">103/112</span></div>
+                <div class="svc-tags">
+                    <span>İngilisdilli</span>
+                    <span>Pediatriya</span>
+                    <span>Ailə həkimliyi</span>
+                </div>
+            </div>
+            <div class="hospital-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/American+Medical+Center,+St+Petersburg')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="viza" class="tab-content hidden">
+      <h3>Viza və Sərhəd Məlumatları</h3>
+      <div class="viza-grid">
+        <div class="viza-card">
+          <h4><i class="fas fa-info-circle"></i> Viza Tələbləri</h4>
+          <ul class="list viza-list">
+            <li><strong>Tələb olunur:</strong> Bəli (Azərbaycan vətəndaşları üçün)</li>
+            <li><strong>Pasport müddəti:</strong> Səfərdən sonra ən azı 6 ay etibarlı olmalıdır</li>
+          </ul>
+        </div>
+
+        <div class="viza-card">
+          <h4><i class="fas fa-list-ol"></i> Giriş Prosesi</h4>
+          <ol class="list viza-list">
+            <li><strong>Viza:</strong> Səfirdən öncə viza alın (Əksər ölkələr üçün)</li>
+            <li><strong>Sərhəddə:</strong> Pasport və viza təqdim edin</li>
+            <li><strong>Qeydiyyat:</strong> 7 iş günündən çox qalmaq üçün qeydiyyat tələb olunur</li>
+          </ol>
+        </div>
+      </div>
+
+      <h4 style="margin-top:24px; font-size: 18px; color: #fff;">Lazımı Sənədlər</h4>
+      <div class="tag-container">
+        <div class="tag-item" style="border-bottom-color: var(--info);">
+          <strong>Pasport</strong>
+          <small>Etibarlı beynəlxalq pasport</small>
+        </div>
+        <div class="tag-item" style="border-bottom-color: var(--success);">
+          <strong>Viza</strong>
+          <small>Rusiya vizası</small>
+        </div>
+        <div class="tag-item" style="border-bottom-color: var(--warning);">
+          <strong>Miqrasiya Kartı</strong>
+          <small>Girişdə doldurulur (Çıxışa qədər saxlayın)</small>
+        </div>
+      </div>
+
+      <h4 style="margin-top:24px; font-size: 18px; color: #fff;">Məsləhətlər</h4>
+      <ul class="list" style="margin-top: 12px;">
+        <li><span class="note-tag tag-ipucu">İpucu</span> Moskva aeroportunda təcili viza almaq mümkün deyil</li>
+        <li><span class="note-tag tag-meslehet">Məsləhət</span> Qeydiyyatı (registratsiya) mütləq edin (Otel kömək edir)</li>
+        <li><span class="note-tag tag-diqqət">Diqqət</span> Pasportunuzu və Miqrasiya kartınızı həmişə yanınızda gəzdirin</li>
+      </ul>
+    </section>
+
+    <section id="neqliyat" class="tab-content hidden">
+      <h3>Nəqliyyat Məlumatları</h3>
+
+      <div class="transport-container">
+        <div class="transport-card">
+          <h4>İctimai Nəqliyyat (Moskva)</h4>
+          <ul class="list">
+            <li><strong>Metro:</strong> 65 RUB (1 gediş), Troika kartı ilə ucuzdur</li>
+            <li><strong>Avtobus/Tramvay:</strong> Metro qiymətinə yaxın</li>
+            <li><strong>Kart:</strong> Troika kartı (çoxfunksiyalı)</li>
+          </ul>
+        </div>
+
+        <div class="transport-card">
+          <h4>Taksi Xidmətləri</h4>
+          <ul class="list">
+            <li><strong>Tətbiqlər:</strong> Yandex Go, Citymobil, Uber/Gett</li>
+            <li><strong>Başlanğıc:</strong> 150 – 250 RUB</li>
+            <li><strong>Km:</strong> 20 – 40 RUB / km</li>
+            <li><strong>Qeyd:</strong> Tətbiqlər ən təhlükəsiz və ucuzdur.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="transport-container" style="margin-top: 16px;">
+        <div class="transport-card">
+          <h4>Hava Limanı (Moskva)</h4>
+          <ul class="list">
+            <li><strong>Aeroexpress (Qatar):</strong> 500 RUB (Şəhər mərkəzinə 35-45 dəq)</li>
+            <li><strong>Taksi (Tətbiq):</strong> 1000 – 1800 RUB (Təxmini)</li>
+            <li><strong>Metro:</strong> Bəzi aeroportlara metro əlaqəsi var (Vnukovo)</li>
+          </ul>
+        </div>
+
+        <div class="transport-card">
+          <h4>Nəqliyyat Məsləhətləri</h4>
+          <ul class="list">
+            <li><strong>İpucu:</strong> Rusiyada məsafələr böyükdür, vaxt itirməmək üçün metrodan istifadə edin</li>
+            <li><strong>Məsləhət:</strong> Troika kartını mütləq alın (çox qənaətlidir)</li>
+            <li><strong>Diqqət:</strong> Axşam saatlarında Moskva metroları çox dolu olur</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="dil" class="tab-content hidden">
+      <h3>Dil — Əsas ifadələr və tələffüz</h3>
+      <p style="color:var(--muted); text-align: center;">Hər sətirdə "Oxu" düyməsinə basaraq Rus dilində sözün tələffüzünü dinləyə bilərsiniz.</p>
+
+      <div id="vocabGridCards" class="vocab-grid-cards">
+        </div>
+    </section>
+
+    <section id="tehlukesizlik" class="tab-content hidden">
+      <h3>Təhlükəsizlik və Qanunlar</h3>
+
+      <div class="safety-layout">
+        <div class="safety-top">
+          <div class="safety-card-main">
+            <h4><i class="fas fa-phone-volume"></i> Təcili Nömrələr</h4>
+            <ul class="emergency-list">
+              <li>Ümumi Təcili (Hər şey): <span class="emergency-number-box">112</span></li>
+              <li>Polis: <span class="emergency-number-box" style="background: var(--info);">102</span></li>
+              <li>Təcili Tibb: <span class="emergency-number-box">103</span></li>
+              <li>Yanğın: <span class="emergency-number-box">101</span></li>
+            </ul>
+          </div>
+
+          <div class="safety-card-main">
+            <h4><i class="fas fa-gavel" style="color: var(--info);"></i> Yerli Qanunlar</h4>
+            <ul class="local-laws-list list">
+              <li>İctimai yerlərdə **siqaret çəkmək qadağandır**</li>
+              <li>**Miqrasiya Kartı** 7 gündən çox qalarkən vacibdir</li>
+              <li>**Narkotik maddələr** qəti qadağandır</li>
+              <li>Polis sənəd yoxlaması apara bilər (həmişə pasportu yanınızda saxlayın)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="safety-mid">
+          <div class="safety-mid-card">
+            <h4><i class="fas fa-user-shield"></i> Şəxsi Təhlükəsizlik</h4>
+            <ul class="list">
+              <li>Metro və izdihamlı yerlərdə **ehtiyatlı olun**</li>
+              <li>Qiymətli əşyaları **göstərməyin**</li>
+              <li>Gecə saatlarında qaranlıq küçələrdən uzaq durun</li>
+              <li>Sənədlərin surətini elektron və ya fiziki formada saxlayın</li>
+            </ul>
+          </div>
+
+          <div class="safety-mid-card" style="border-bottom-color: var(--info);">
+            <h4><i class="fas fa-wifi" style="color: var(--info);"></i> Rabitə</h4>
+            <ul class="list">
+              <li>Yerli sim kart alın (MTS, Beeline, Megafon)</li>
+              <li>Rusiyada **mobil internet** sürətlidir</li>
+              <li>**Tərcümə tətbiqlərindən** istifadə edin</li>
+            </ul>
+          </div>
+
+          <div class="safety-mid-card" style="border-bottom-color: var(--warning);">
+            <h4><i class="fas fa-map-marker-alt" style="color: var(--warning);"></i> Yolgetirmə</h4>
+            <ul class="list">
+              <li>**Metro xəritəsi** mütləqdir</li>
+              <li>Böyük şəhərlərdə taksi tətbiqləri istifadə edin</li>
+              <li>Bəzi yer adları kiril əlifbası ilə qeyd olunur, **ehtiyatlı olun**</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="safety-bottom">
+          <h4>Diqqət: Ümumi Fırıldaqlar</h4>
+          <div class="fraud-grid">
+            <div class="fraud-item">
+              <strong>Taksi Fırıldaqları</strong>
+              <small>Aeroportda qeyri-rəsmi taksilər qiyməti artırır; Yandex Go istifadə edin</small>
+            </div>
+            <div class="fraud-item">
+              <strong>Polis Fırıldaqları</strong>
+              <small>Qeyri-rəsmi sənəd yoxlamaları; pasportunuzun surətini təqdim edin</small>
+            </div>
+            <div class="fraud-item">
+              <strong>Pul Dəyişmə</strong>
+              <small>Böyük məbləğləri yalnız banklarda dəyişin</small>
+            </div>
+            <div class="fraud-item">
+              <strong>Restoran</strong>
+              <small>Gizli xidmət haqqı əlavə edilə bilər (çox nadir hallarda)</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>©Nicat Hüseynli - Müəllif Hüquqları qorunur - 2025</footer>
+  </div>
+  
+  <div id="detailsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">×</span>
+      <div class="modal-body">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDescription"></p>
+        <button id="modalReserveBtn" class="reserve-btn" onclick="openReservationModalFromDetails()">Online Rezerv Et</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="reservationModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">×</span>
+      <div class="modal-body">
+        <h3 id="reservationTitle"></h3>
+        <p style="color: var(--warning);">Rezervasiya</p>
+        
+        <form id="reservationForm" class="reservation-form">
+            <input type="text" id="reserveName" placeholder="Ad Soyad" required>
+            <input type="email" id="reserveEmail" placeholder="Email ünvanı" required>
+            
+            <label for="reserveTime" style="color: var(--muted); font-size: 13px; margin-top: 5px;">Saat seçin (Məs: 19:30):</label>
+            <input type="text" id="reserveTime" placeholder="Saat daxil edin" required> 
+            
+            <select id="reserveGuests">
+                <option value="1">1 Nəfər</option>
+                <option value="2">2 Nəfər</option>
+                <option value="3">3 Nəfər</option>
+                <option value="4+">4+ Nəfər</option>
+            </select>
+            <input type="date" id="reserveDate" required>
+
+            <button type="submit" class="confirm-btn">Rezervasiyanı Göndər</button>
+            <div id="reservationMessage" style="display:none;">Rezerv qeydə alındı! Təşəkkür edirik.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const detailsModal = document.getElementById('detailsModal');
+    const reservationModal = document.getElementById('reservationModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const reservationTitle = document.getElementById('reservationTitle');
+    const modalReserveBtn = document.getElementById('modalReserveBtn');
+    const reservationForm = document.getElementById('reservationForm');
+    const reservationMessage = document.getElementById('reservationMessage');
+    const timeDisplay = document.getElementById('timeDisplay');
+    let currentReservationName = ''; 
+
+    // ********* Rusiya SAATINI GÖSTƏRƏN FUNKSIYA (UTC+3) *********
+    function updateTurkeyTime() {
+        const now = new Date();
+        const russiaOffset = -1 * 60; // Moskva UTC+3, Bakı UTC+4
+        const russiaTime = new Date(now.getTime() + russiaOffset * 60 * 1000);
+        
+        const hours = russiaTime.getHours().toString().padStart(2, '0');
+        const minutes = russiaTime.getMinutes().toString().padStart(2, '0');
+        const seconds = russiaTime.getSeconds().toString().padStart(2, '0');
+        
+        timeDisplay.textContent = `${hours}:${minutes}:${seconds} (UTC+3)`;
+    }
+    
+    // ********* TABS AND MODAL LOGIC *********
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+    
+    // Tab switching function
+    tabs.forEach(tab=>{
+        tab.addEventListener('click', ()=>{
+            tabs.forEach(t=>t.classList.remove('active'));
+            tab.classList.add('active');
+            const target = tab.dataset.tab;
+            contents.forEach(c=>{
+                if(c.id === target) {
+                    c.style.opacity = '0';
+                    c.classList.remove('hidden');
+                    setTimeout(() => { c.style.opacity = '1'; }, 10);
+                }
+                else c.classList.add('hidden');
+            });
+            window.scrollTo({top:0,behavior:'smooth'});
+        });
+    });
+
+    // Close modal function
+    document.querySelectorAll('.close-btn').forEach(btn => {
+        btn.onclick = function() {
+            detailsModal.style.display = 'none';
+            reservationModal.style.display = 'none';
+            reservationMessage.style.display = 'none';
+            reservationForm.style.display = 'block';
+            reservationForm.reset();
+        }
+    });
+
+    // Function to open the main reservation modal
+    window.openReservationModal = function(name) {
+        currentReservationName = name;
+        reservationTitle.textContent = "Rezervasiya: " + name;
+        detailsModal.style.display = 'none'; 
+        reservationModal.style.display = 'block';
+    }
+
+    // Function to handle opening the reservation modal from inside the Details modal
+    window.openReservationModalFromDetails = function() {
+        detailsModal.style.display = 'none';
+        reservationTitle.textContent = "Rezervasiya: " + modalTitle.textContent;
+        reservationModal.style.display = 'block';
+    }
+
+    // Open details/reservation modal logic
+    document.querySelectorAll('.details-open').forEach(btn => {
+        btn.onclick = function() {
+            const card = this.closest('.place-card') || this.closest('.hotel-card') || this.closest('.restaurant-card');
+            const name = card.dataset.name;
+            const info = card.dataset.info;
+            const type = this.dataset.type;
+
+            modalTitle.textContent = name;
+            modalDescription.textContent = info;
+            detailsModal.style.display = 'block';
+
+            // Show 'Online Rezerv Et' button for reservation types
+            if (type === 'reservation' || card.querySelector('.fa-utensils')) { 
+                modalReserveBtn.style.display = 'inline-block';
+            } else {
+                modalReserveBtn.style.display = 'none';
+            }
+        };
+    });
+
+    // Reservation Form Submission Logic (FIXED)
+    reservationForm.onsubmit = function(event) {
+        event.preventDefault();
+        
+        reservationForm.style.display = 'none';
+        
+        const itemName = reservationTitle.textContent.replace("Rezervasiya: ", "");
+                         
+        const selectedTime = document.getElementById('reserveTime').value;
+                         
+        reservationMessage.textContent = `Rezervasiyanız ("${itemName}") saat ${selectedTime} üçün qeydə alındı! Təşəkkür edirik.`;
+        reservationMessage.style.display = 'block';
+        
+        setTimeout(() => {
+            reservationModal.style.display = 'none';
+            reservationForm.style.display = 'block';
+            reservationMessage.style.display = 'none';
+            reservationForm.reset();
+        }, 3000);
+    };
+
+    // ********* DİL VƏ SƏS LOGİKASI (RUS DİLİ KONTEKSTİ) *********
+    const vocabData = {
+      umumI: [
+        {az:'Salam',tr:'Здравствуйте',pron:'/zdras-tvi-te/', cat:'ÜMUMİ'},
+        {az:'Sağ olun',tr:'Спасибо',pron:'/spa-si-ba/', cat:'ÜMUMİ'},
+        {az:'Bağışlayın',tr:'Извините',pron:'/iz-vi-ni-te/', cat:'ÜMUMİ'},
+        {az:'Xahiş edirəm',tr:'Пожалуйста',pron:'/po-ja-lus-ta/', cat:'ÜMUMİ'},
+        {az:'Bəli',tr:'Да',pron:'/da/', cat:'ÜMUMİ'},
+        {az:'Xeyr',tr:'Нет',pron:'/net/', cat:'ÜMUMİ'},
+        {az:'Başa düşmürəm',tr:'Я не понимаю',pron:'/ya ne po-ni-mayu/', cat:'ÜMUMİ'},
+        {az:'Kömək edin',tr:'Помогите',pron:'/po-mo-gi-te/', cat:'ÜMUMİ'},
+        {az:'Nə qədər?',tr:'Сколько стоит?',pron:'/skol-ko sto-it/', cat:'ÜMUMİ'},
+        {az:'Harada?',tr:'Где находится?',pron:'/gde na-ho-dit-sya/', cat:'ÜMUMİ'},
+      ],
+      yemek: [
+        {az:'Mən acam',tr:'Я голоден',pron:'/ya go-lo-den/', cat:'YEMƏK'},
+        {az:'Su',tr:'Вода',pron:'/vo-da/', cat:'YEMƏK'},
+        {az:'Çörək',tr:'Хлеб',pron:'/khleb/', cat:'YEMƏK'},
+        {az:'Ət',tr:'Мясо',pron:'/mya-so/', cat:'YEMƏK'},
+        {az:'Şorba',tr:'Суп',pron:'/sup/', cat:'YEMƏK'},
+        {az:'Hesab',tr:'Счет, пожалуйста',pron:'/schot po-zha-lus-ta/', cat:'YEMƏK'},
+      ],
+      yol: [
+        {az:'Taksi',tr:'Такси',pron:'/tak-si/', cat:'NƏQLİYYAT'},
+        {az:'Metro',tr:'Метро',pron:'/me-tro/', cat:'NƏQLİYYAT'},
+        {az:'Vağzal',tr:'Вокзал',pron:'/vok-zal/', cat:'NƏQLİYYAT'},
+        {az:'Hava limanı',tr:'Аэропорт',pron:'/a-e-ro-port/', cat:'NƏQLİYYAT'},
+        {az:'Sağa',tr:'Направо',pron:'/na-pra-vo/', cat:'NƏQLİYYAT'},
+        {az:'Sola',tr:'Налево',pron:'/na-le-vo/', cat:'NƏQLİYYAT'},
+      ],
+      techili: [
+        {az:'Kömək!',tr:'Помогите!',pron:'/po-mo-gi-te/', cat:'TƏCİLİ'},
+        {az:'Polis',tr:'Полиция',pron:'/po-li-tsi-ya/', cat:'TƏCİLİ'},
+        {az:'Təcili yardım',tr:'Скорая помощь',pron:'/sko-ra-ya po-moşç/', cat:'TƏCİLİ'},
+        {az:'Oğurlandı',tr:'Украли',pron:'/u-kra-li/', cat:'TƏCİLİ'},
+      ]
+    };
+    
+    // Dil kartlarının yaradılması
+    const vocabGridCards = document.getElementById('vocabGridCards');
+
+    const allVocab = [
+      ...vocabData.umumI,
+      ...vocabData.yemek,
+      ...vocabData.yol,
+      ...vocabData.techili
+    ];
+
+    allVocab.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'vocab-card';
+      const textToSpeak = item.tr.split('(')[0].trim();
+      
+      card.innerHTML = `
+        <div class="vocab-item-group">
+            <small>${item.az}</small>
+            <strong>${item.tr}</strong>
+            <small>${item.pron}</small>
+        </div>
+        <div class="vocab-item-group vocab-tr-section">
+            <div class="vocab-category">${item.cat}</div>
+            <button class="vocab-play-btn" data-text="${textToSpeak}" title="Tələffüzü dinlə">
+                <i class="fas fa-volume-up"></i> Oxu
+            </button>
+        </div>
+      `;
+      vocabGridCards.appendChild(card);
+    });
+
+    // ********* SƏS TƏLƏFFÜZÜ FUNKSİYASI (RUS DİLİ ÜÇÜN) *********
+    function speak(text){
+      if(!('speechSynthesis' in window)) return alert('Təəssüf ki, brauzeriniz səs çıxarma funksiyasını dəstəkləmir.');
+      
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.95;
+      u.pitch = 1.0;
+      
+      const voices = speechSynthesis.getVoices();
+      
+      // Rus səsi olmadıqda, İngilis səsi istifadə olunur (ümumi səs)
+      let preferredVoice = voices.find(v => v.lang.toLowerCase().startsWith('ru'));
+      
+      u.voice = preferredVoice || voices[0];
+      u.lang = 'ru-RU'; 
+      
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }
+
+    document.addEventListener('click', (e)=>{
+      if(e.target && e.target.classList.contains('vocab-play-btn')){
+        const t = e.target.getAttribute('data-text');
+        if(t) speak(t);
+      }
+    });
+
+    // Initial calls
+    updateTurkeyTime();
+    setInterval(updateTurkeyTime, 1000);
+    
+  </script>
+</body>
+</html>

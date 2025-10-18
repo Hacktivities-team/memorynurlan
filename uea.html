@@ -1,0 +1,1434 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Turizm Helper — BƏƏ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ/2KjYI0dE83eE6I0p8XqM7l+z8x8R9E7/Q8x8R7L5P4Q2+uT1g2H3G4N4P5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* BƏƏ ÜÇÜN RƏNGLƏR (Qara, Yaşıl, Qırmızı - Bayraqdan) */
+    :root{
+      --bg:#050d1a;
+      --card:#0d1118; 
+      --muted:#9aa4b2;
+      --accent:#d52b1e; /* Qırmızı aksent (BƏƏ) */
+      --glass: rgba(255,255,255,0.05);
+      --shadow-color: rgba(0,0,0,0.7);
+      --danger: #ef4444; 
+      --success: #00732f; /* Tünd Yaşıl */
+      --warning: #f59e0b; 
+      --info: #3b82f6; 
+      --play-btn-bg: #4a4a4a; 
+      --play-btn-color: #fff; 
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#03080e,#071523);color:#e6eef6;padding:18px}
+    .wrap{max-width:1100px;margin:0 auto}
+    header{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        margin-bottom:24px;
+        padding:8px 0; 
+        position: relative;
+    }
+
+    .return-home {
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-decoration: none;
+        color: #000;
+        padding: 10px 15px;
+        border-radius: 8px;
+        background: #ffffff; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: 0.2s ease-out;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        margin-top: 10px; 
+        font-size: 18px; 
+        font-weight: bold;
+    }
+    .return-home:hover {
+        background: #f0f0f0;
+        color: var(--accent);
+        transform: translateY(-2px);
+    }
+    .return-home i {
+        font-size: 20px; 
+    }
+    
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--success));display:flex;align-items:center;justify-content:center;color:#e6eef6;font-weight:800;font-size:28px;
+          box-shadow: 0 0 15px rgba(213, 43, 30, 0.4);}
+    h1{margin:0;font-size:28px}
+    .meta{color:var(--muted);font-size:14px}
+
+    /* tabs (Şəkildəki kimi yalnız ikon və text) */
+    .tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;
+          background: #111; /* Bütün tablar üçün arxa fon */
+          border-radius: 12px;
+          padding: 8px;}
+    .tab{padding:10px 16px;background:transparent;border-radius:8px;cursor:pointer;
+          color:#e6eef6;font-weight:500;
+          transition:0.2s ease-out;
+          display:flex; align-items:center; gap:8px;} /* İkonlar yoxdursa, text mərkəzdə qalır */
+    .tab:hover{background:rgba(255,255,255,0.08);color:#e6eef6;}
+    .tab.active{background:linear-gradient(135deg, var(--success), var(--accent)); 
+          color:#fff;font-weight:600;
+          box-shadow: 0 0 10px rgba(0, 115, 47, 0.5);
+          transform:translateY(0)}
+    .tab.active i{color:#fff;}
+
+    /* tab content base */
+    .tab-content{background:var(--card);padding:24px;border-radius:16px;
+          box-shadow: 0 10px 30px var(--shadow-color), 0 0 5px rgba(255,255,255,0.05);
+          margin-bottom:24px;
+          transition:opacity 0.3s ease-in-out;}
+    .tab-content.hidden{display:none}
+    .tab-content h3{text-align: center; margin-bottom: 24px; font-size: 24px; font-weight: 700; color: #fff; padding-bottom: 0; border: none;}
+    .small-meta{color:var(--muted);font-size:13px;margin-top:6px}
+
+    /* Ümumi (Info Card) styles - Şəkilə uyğun saxlanıldı */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .info-card {
+      background: #111; /* Kart üçün tünd fon */
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.2s ease-out;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    .info-card:hover {
+      background: #1a1a1a;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+    }
+    .info-icon {
+      font-size: 32px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .info-card strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .info-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Yerlər layout - Şəkilə uyğun */
+    .places-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px} 
+    .place-card, .hotel-card, .restaurant-card { /* Restoran kartı əlavə edildi */
+        background:#111;
+        padding:0;
+        border-radius:12px;
+        overflow: hidden;
+        transition:0.2s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        border: 1px solid #222;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .place-card:hover, .hotel-card:hover, .restaurant-card:hover {transform:translateY(-5px);box-shadow: 0 10px 25px rgba(0,0,0,0.6);}
+    .place-thumb, .hotel-thumb, .restaurant-thumb {width:100%;height:180px;background:#081423;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;position:relative;}
+    .place-thumb img, .hotel-thumb img, .restaurant-thumb img {width:100%; height: 100%; object-fit: cover; opacity: 0.8;}
+    .place-info, .hotel-info, .restaurant-info {padding:12px 12px 0 12px; flex-grow: 1; position:relative;}
+    .place-title, .hotel-title, .restaurant-title {font-weight:700;font-size:18px;margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center;}
+    .place-title .price, .hotel-title .price, .restaurant-title .price {font-size: 16px; color: var(--accent);}
+    .place-meta, .hotel-meta, .restaurant-meta {color:var(--muted);font-size:13px;margin-bottom: 8px;}
+    .rating{background:var(--accent);color:#000;padding:6px 10px;border-radius:0 0 0 10px;font-weight:700;position:absolute;top:0;right:0;font-size:15px; z-index: 10;}
+    .place-tags span, .hotel-tags span, .restaurant-tags span {background: #222; color: #fff; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px; display: inline-block; margin-top: 4px;}
+
+    /* DƏYİŞİKLİK: Ətraflı/Locasiya düymələri */
+    .place-actions, .hospital-actions, .hotel-actions, .restaurant-actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 12px 12px 12px;
+        border-top: 1px solid #1a1a1a;
+        gap: 8px; /* Düymələr arasında boşluq */
+    }
+    .action-btn {
+        background: var(--accent);
+        color: #fff;
+        padding: 8px 10px; /* Daha yığcam padding */
+        border-radius: 6px;
+        font-size: 13px; /* Daha yığcam font ölçüsü */
+        font-weight: 600;
+        transition: 0.15s;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        align-items: center;
+        flex-grow: 1; 
+        justify-content: center; 
+        margin: 0;
+    }
+    .action-btn i {
+        margin-right: 4px; /* İkon və mətn arasında daha az boşluq */
+    }
+    .action-btn.location {
+        background: #222;
+        border: 1px solid var(--muted);
+        color: var(--muted);
+        flex-grow: 0.6; /* Location düyməsi daha kiçik */
+    }
+    .action-btn:hover {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+
+    /* Yeməklər grid */
+    .food-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+    .food-card{background:#111;padding:0;border-radius:12px;text-align:left;overflow: hidden;
+          transition:0.2s;box-shadow: 0 4px 15px rgba(0,0,0,0.4);border: 1px solid #222; cursor: pointer;}
+    .food-card:hover{transform:translateY(-5px);box-shadow: 0 10px 25px rgba(0,0,0,0.6);}
+    .food-thumb{width:100%;height:180px;background:#081423;display:flex;align-items:center;justify-content:center;color:var(--muted);overflow: hidden;}
+    .food-thumb img {width:100%; height: 100%; object-fit: cover; opacity: 0.7;}
+    .food-info {padding: 12px;}
+    .food-name{font-weight:700;margin-top:0;font-size:18px}
+    .food-desc{color:var(--muted);font-size:13px;margin-top:4px}
+    .food-price{margin-top:8px;font-weight:700;color:var(--success); background: #1a1a1a; padding: 4px 8px; border-radius: 6px; display: inline-block; font-size: 13px;}
+    .food-tags span {background: #222; color: #fff; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px; display: inline-block; margin-top: 8px;}
+
+
+    /* Hospitals 2 columns */
+    .hosp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:16px}
+    .hospital{background:#111;padding:20px;border-radius:12px;
+          border: 1px solid #222;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+          display: flex; 
+          gap: 16px; 
+          align-items: flex-start;} 
+    .hospital-thumb { 
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        background: #222;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .hospital-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .hospital-body { 
+        flex-grow: 1;
+    }
+    .hospital strong{display:flex;align-items:center;margin-bottom:12px;font-size:18px; color: var(--danger);}
+    .hospital strong i {font-size: 20px; margin-right: 10px; color: var(--danger);}
+    .hospital .small-meta{color:var(--muted);font-size:14px;margin-bottom: 8px;}
+    .hospital .small-meta strong {display: inline; font-size: 14px; color: #fff; font-weight: 500;}
+    .emergency-number {background: var(--danger); color: #fff; padding: 4px 10px; border-radius: 6px; font-weight: 700; display: inline-block; margin-top: 4px; margin-bottom: 12px;}
+    .svc-tags span {background: #222; color: var(--accent); padding: 4px 10px; border-radius: 6px; font-size: 12px; margin-right: 6px; display: inline-block; margin-top: 8px; border: 1px solid rgba(6, 182, 212, 0.4);}
+
+
+    /* MODAL (Yeni pəncərə) üçün stillər */
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1000; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.8); 
+        padding-top: 60px;
+    }
+    .modal-content {
+        background-color: var(--card);
+        margin: 5% auto; 
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 16px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close-btn:hover,
+    .close-btn:focus {
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .modal-body p {
+        color: var(--muted);
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    .modal-body h4 {
+        color: var(--accent);
+        margin-top: 0;
+        border-bottom: 1px solid #222;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
+    .reservation-form input, .reservation-form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        border: 1px solid #333;
+        background: #1a1a1a;
+        color: #fff;
+        font-size: 14px;
+    }
+    .reserve-btn, .confirm-btn {
+        background: var(--success);
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: 0.2s;
+    }
+    .reserve-btn:hover, .confirm-btn:hover {
+        background: #159b6f;
+    }
+    
+    /* Rezervasiya Təsdiq Mesajı */
+    #reservationMessage {
+        padding: 15px;
+        margin-top: 15px;
+        background: var(--success);
+        color: #fff;
+        border-radius: 8px;
+        text-align: center;
+        display: none;
+        font-weight: 600;
+    }
+
+    /* DİL - Çərçivəli stil (Yeniləndi) */
+    .vocab-grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .vocab-card {
+      background: #1a1a1a;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #222;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* İki sütun */
+      gap: 12px;
+      align-items: center;
+    }
+    .vocab-item-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-right: 10px;
+        font-size: 14px; 
+    }
+    .vocab-item-group:nth-child(2) {
+        border-left: 1px solid #222;
+        padding-left: 15px;
+        height: 100%;
+        display: flex;
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center;
+    }
+    .vocab-item-group strong {
+        font-size: 16px; 
+        color: #fff;
+    }
+    .vocab-item-group small {
+        color: var(--muted);
+        font-size: 12px;
+    }
+    .vocab-category {
+        background: #222;
+        color: var(--muted);
+        padding: 3px 6px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+    .vocab-play-btn {
+        background: var(--accent);
+        color: #000;
+        border: none;
+        padding: 6px 10px; 
+        border-radius: 4px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.15s;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    /* Viza, Nəqliyyat, Təhlükəsizlik üçün orjinal strukturun bərpası */
+    /* Qutuların iki sütunlu olması üçün tənzimləmə */
+    .viza-grid, .transport-container, .safety-top {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 16px;
+    }
+    /* Məsləhət və Fırıldaqlar bölmələri üçün də eyni iki sütunlu qrid tətbiq edilir */
+    .safety-mid, .fraud-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+    }
+
+    .viza-card h4, .transport-card h4, .safety-card-main h4 {
+        border-bottom: 1px solid #222;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+        font-size: 18px; /* Başlıq ölçüsü bərpa edilir */
+    }
+    .viza-list li, .list li, .local-laws-list li, .emergency-list li {
+        text-align: left;
+        padding: 4px 0;
+        font-size: 14px;
+    }
+    .viza-list strong, .list li strong {
+        font-weight: 600;
+        color: #fff;
+    }
+    .safety-mid-card {
+        background: #111; /* Kart fonu bərpa edilir */
+        border: 1px solid #222;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+    .safety-mid-card h4 {
+        margin-top: 0;
+        font-size: 16px;
+    }
+    .fraud-item {
+        border-left: 3px solid var(--danger);
+        padding-left: 10px;
+    }
+
+    /* Responsivlik dəyişiklikləri */
+    @media(max-width:900px){
+      .places-grid{grid-template-columns:repeat(2,1fr)} 
+      .food-grid{grid-template-columns:repeat(2,1fr)} 
+      .hosp-grid{grid-template-columns:1fr}
+      .viza-grid, .transport-container, .safety-top, .safety-mid, .fraud-grid {grid-template-columns: 1fr;}
+      .vocab-grid-cards {grid-template-columns: repeat(1, 1fr);} /* Tablet görünüşdə bir sütun */
+      .vocab-item-group:nth-child(2) {border-left: none; padding-left: 10px; padding-top: 10px;}
+      .place-actions, .hospital-actions, .hotel-actions, .restaurant-actions {flex-wrap: wrap;}
+      .place-actions button, .hotel-actions button, .restaurant-actions button {flex-grow: 1; min-width: 100px; margin-bottom: 5px;}
+    }
+    @media(max-width:520px){
+      .places-grid{grid-template-columns:1fr} 
+      .food-grid{grid-template-columns:1fr} 
+      .tabs {padding: 4px;}
+      .hospital {flex-direction: column; align-items: stretch;}
+      .hospital-thumb {width: 100%; height: 120px;}
+      .modal-content {width: 95%; margin: 30% auto;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <a href="index.html" class="return-home">
+        <i class="fas fa-arrow-left"></i>
+        <- 
+    </a>
+
+    <header>
+      <div style="display:flex;gap:12px;align-items:center; width: 100%; justify-content: center;">
+        <div class="logo">🇦🇪</div> 
+        <div>
+          <h1>Birləşmiş Ərəb Əmirlikləri</h1>
+          <div class="meta">Paytaxt: Abu Dabi • Dil: Ərəb (İngiliscə geniş yayılıb) • Valyuta: Dirhəm (AED)</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="tabs" role="tablist" aria-label="BƏƏ kateqoriyaları">
+      <div class="tab active" data-tab="umumi">Ümumi</div>
+      <div class="tab" data-tab="yerler">Yerlər</div>
+      <div class="tab" data-tab="yemekler">Yeməklər</div>
+      <div class="tab" data-tab="restoranlar">Restoranlar</div> 
+      <div class="tab" data-tab="oteller">Hotellər</div> 
+      <div class="tab" data-tab="xestexanalar">Xəstəxanalar</div>
+      <div class="tab" data-tab="viza">Viza</div>
+      <div class="tab" data-tab="neqliyat">Nəqliyyat</div>
+      <div class="tab" data-tab="dil">Dil</div>
+      <div class="tab" data-tab="tehlukesizlik">Təhlükəsizlik</div>
+    </div>
+
+    <section id="umumi" class="tab-content">
+      <h3>Birləşmiş Ərəb Əmirlikləri haqqında ümumi məlumat</h3>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-icon" style="color: var(--info);"><i class="fas fa-info-circle"></i></div>
+          <strong>Ümumi Məlumat</strong>
+          <small>Ölkə haqqında əsas faktlar və məlumatlar</small>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon" style="color: #f59e0b;"><i class="fas fa-clock"></i></div>
+          <strong id="timeDisplay">Yerli Saat (Dubay)</strong>
+          <small>UTC+4 (Bakı ilə eyni)</small>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon" style="color: var(--danger);"><i class="fas fa-phone-alt"></i></div>
+          <strong>Təcili Nömrələr</strong>
+          <small>999 (Polis), 998 (Tibb)</small>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon" style="color: var(--success);"><i class="fas fa-money-bill-wave"></i></div>
+          <strong>Valyuta</strong>
+          <small>Dirhəm (AED)</small>
+        </div>
+      </div>
+
+      <div style="text-align:center; color:var(--muted); font-size:15px; margin-top: 10px;">
+          Bu səhifədə BƏƏ (Dubay) haqqında səyahət üçün lazım olan bütün məlumatları tapa bilərsiniz.
+      </div>
+
+    </section>
+
+    <section id="yerler" class="tab-content hidden">
+      <h3>Yerlər</h3>
+      <div class="places-grid">
+        
+        <div class="place-card" data-name="Burc Xəlifə" data-restaurant="At.mosphere" data-restaurant-location="http://googleusercontent.com/maps/place/At.mosphere">
+          <div class="rating">4.8</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Burc Xəlifə şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Burc Xəlifə <span class="price">150+ AED</span></div>
+            <div class="place-meta">Dünyanın ən hündür binası.</div>
+            <div class="place-tags">
+              <span>Müasir</span>
+              <span>Dubay</span>
+              <span>Gözətçi</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Burj+Khalifa')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" data-info="At.mosphere (Burc Xəlifənin 122-ci mərtəbəsində) yerləşən restoranı rezerv et.">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Burc Xəlifə, 828 metr hündürlüyündədir. Təqdimat platformasına bilet almaq lazımdır.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Dubay Mall" data-restaurant="Din Tai Fung" data-restaurant-location="http://googleusercontent.com/maps/place/Din+Tai+Fung">
+          <div class="rating">4.7</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Dubay Mall şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Dubay Mall <span class="price">Pulsuz</span></div>
+            <div class="place-meta">Dünyanın ən böyük ticarət mərkəzlərindən biri.</div>
+            <div class="place-tags">
+              <span>Alış-veriş</span>
+              <span>Əyləncə</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/The+Dubai+Mall')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" data-info="Din Tai Fung (Dubay Mall-da) restoranını rezerv et.">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Dubay Mall akvarium, buz meydançası və rəqs edən fəvvarələrə malikdir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Cümeyra Çimərliyi" data-restaurant="Pierchic" data-restaurant-location="http://googleusercontent.com/maps/place/Pierchic">
+          <div class="rating">4.6</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Cümeyra Çimərliyi şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Cümeyra Çimərliyi <span class="price">Pulsuz</span></div>
+            <div class="place-meta">Məşhur Burc Əl Ərəb otelinə baxan sahil.</div>
+            <div class="place-tags">
+              <span>Çimərlik</span>
+              <span>Dubay</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Jumeirah+Beach')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" data-info="Pierchic (Dəniz üzərindəki körpü) restoranını rezerv et.">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Cümeyra Çimərliyi təmiz qumları və Burc Əl Ərəb mənzərəsi ilə tanınan ictimai çimərlikdir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Dubay Marina" data-restaurant="Zuma Dubai" data-restaurant-location="http://googleusercontent.com/maps/place/Zuma+Dubai">
+          <div class="rating">4.7</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Dubay Marina şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Dubay Marina <span class="price">Pulsuz</span></div>
+            <div class="place-meta">Süni su kanalı və göydələnlər.</div>
+            <div class="place-tags">
+              <span>Gəzinti</span>
+              <span>Marina</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Dubai+Marina')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" data-info="Zuma Dubai (Maliyyə mərkəzində) restoranını rezerv et.">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Dubay Marina süni kanaldan ibarətdir və lüks yaşayış binaları, otellər və restoranlarla əhatə olunub.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+        
+        <div class="place-card" data-name="Əl Fəvvarələr Şousu" data-restaurant="Thiptara" data-restaurant-location="http://googleusercontent.com/maps/place/Thiptara">
+          <div class="rating">4.9</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Dubay Fəvvarələri şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Əl Fəvvarələr Şousu <span class="price">Pulsuz</span></div>
+            <div class="place-meta">Musiqi və işıqlarla rəqs edən su fontanı.</div>
+            <div class="place-tags">
+              <span>Şou</span>
+              <span>Dubay</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/The+Dubai+Fountain')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" data-info="Thiptara (Dubay Fəvvarələrinə mənzərəli) restoranını rezerv et.">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Burc Xəlifə gölü üzərindəki fəvvarələr hər axşam musiqi ilə sinxronlaşdırılmış su şouları təqdim edir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Palma Cümeyra" data-restaurant="Nobu Dubai" data-restaurant-location="http://googleusercontent.com/maps/place/Nobu+Dubai">
+          <div class="rating">4.5</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Palma Cümeyra şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Palma Cümeyra <span class="price">Pulsuz</span></div>
+            <div class->place-meta">Xurma ağacı şəklində süni ada.</div>
+            <div class->place-tags">
+              <span>Ada</span>
+              <span>Lüks</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Palm+Jumeirah')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="place-reserve" onclick="openReservationModal('Nobu Dubai')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Palma Cümeyra dünyanın ən böyük süni adalarından biridir. Atlantis otelinə ev sahibliyi edir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="yemekler" class="tab-content hidden">
+      <h3>Yeməklər (Ərəb və Beynəlxalq Mətbəx)</h3>
+      <p style="color:var(--muted); text-align: center; margin-bottom: 24px;">BƏƏ və Dubayın məşhur yeməklərindən seçmələr.</p>
+
+      <div class="food-grid" role="list">
+        <div class="food-card" role="listitem" data-name="Şavarma">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Şavarma şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Şavarma</div>
+            <div class="food-desc">Ət (toyuq, quzu) bükülmüş çörək.</div>
+            <div class="food-tags">
+              <span>Ət</span>
+              <span>Fast Food</span>
+            </div>
+            <div class="food-price">8–15 AED</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Məçbuus">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Məçbuus şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Məçbuus</div>
+            <div class="food-desc">Ədviyyatlarla bişirilmiş düyü və ət (və ya balıq).</div>
+            <div class="food-tags">
+              <span>Düyü</span>
+              <span>Ərəb Mətbəxi</span>
+            </div>
+            <div class="food-price">40–80 AED</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Əl Luqaimat">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Əl Luqaimat şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Əl Luqaimat</div>
+            <div class="food-desc">Bal və ya xurma siropu ilə kiçik şirin kökələr.</div>
+            <div class="food-tags">
+              <span>Desert</span>
+              <span>Şirin</span>
+            </div>
+            <div class="food-price">15–25 AED</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Falafel">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Falafel şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Falafel</div>
+            <div class="food-desc">Noxuddan hazırlanmış qızardılmış kökə.</div>
+            <div class="food-tags">
+              <span>Noxud</span>
+              <span>Vegetarian</span>
+            </div>
+            <div class="food-price">10–20 AED</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Hummus">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Hummus şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Hummus</div>
+            <div class="food-desc">Noxud və tahinadan hazırlanan püre (çörəklə yeyilir).</div>
+            <div class="food-tags">
+              <span>Noxud</span>
+              <span>Vegan</span>
+            </div>
+            <div class="food-price">20–35 AED</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="restoranlar" class="tab-content hidden">
+      <h3>Ən Yaxşı Restoranlar (Online Rezervasiya)</h3>
+      <div class="places-grid">
+        
+        <div class="restaurant-card" data-name="Pierchic" data-location="http://googleusercontent.com/maps/place/Pierchic">
+          <div class="rating">4.6</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Pierchic şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Pierchic <span class="price">Ultra Lüks</span></div>
+            <div class="restaurant-meta">Dəniz üzərində tikilmiş, romantik balıq restoranı.</div>
+            <div class="restaurant-tags">
+              <span>Lüks</span>
+              <span>Dəniz Məhsulları</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Pierchic')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Pierchic, Burc Əl Ərəbə baxan dəniz üzərindəki körpüdə yerləşən Dubayın ən eksklüziv restoranlarından biridir.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="restaurant-card" data-name="At.mosphere" data-location="http://googleusercontent.com/maps/place/At.mosphere">
+          <div class="rating">4.8</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="At.mosphere şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">At.mosphere <span class="price">Elit</span></div>
+            <div class="restaurant-meta">Burc Xəlifənin 122-ci mərtəbəsində.</div>
+            <div class="restaurant-tags">
+              <span>Lüks</span>
+              <span>Mənzərə</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/At.mosphere')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="At.mosphere, Burc Xəlifənin 122-ci mərtəbəsində yerləşən, şəhərə inanılmaz mənzərə təklif edən restoran-lounge-dur.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="restaurant-card" data-name="Zuma Dubai" data-location="http://googleusercontent.com/maps/place/Zuma+Dubai">
+          <div class="rating">4.7</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Zuma Dubai şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Zuma Dubai <span class="price">Fine Dining</span></div>
+            <div class="restaurant-meta">Beynəlxalq səviyyəli müasir Yapon mətbəxi.</div>
+            <div class="restaurant-tags">
+              <span>Yapon</span>
+              <span>Lüks</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Zuma+Dubai')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Zuma, Dubayın maliyyə mərkəzində yerləşən ən populyar və elit Yapon restoranıdır.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+        
+        <div class="restaurant-card" data-name="Thiptara" data-location="http://googleusercontent.com/maps/place/Thiptara">
+          <div class="rating">4.5</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Thiptara şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Thiptara <span class="price">Yüksək</span></div>
+            <div class="restaurant-meta">Dubay Fəvvarələrinə mənzərəli Tayland mətbəxi.</div>
+            <div class="restaurant-tags">
+              <span>Tayland</span>
+              <span>Mənzərə</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Thiptara')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Thiptara 'fəvvarə şousu' zamanı ən romantik və gözəl mənzərələrdən birini təklif edən Tayland restoranıdır.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="oteller" class="tab-content hidden">
+      <h3>Ən Populyar Hotellər</h3>
+      <div class="places-grid">
+        
+        <div class="hotel-card" data-name="Burj Al Arab Jumeirah" data-location="http://googleusercontent.com/maps/place/Burj+Al+Arab+Jumeirah">
+          <div class="rating">5.0</div>
+          <div class="place-thumb">
+             <img src="URL BURA" alt="Burj Al Arab şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Burj Al Arab Jumeirah <span class="price">Ultra Lüks</span></div>
+            <div class="place-meta">Dünyanın yeganə 7 ulduzlu oteli.</div>
+            <div class="place-tags">
+              <span>7 Ulduz</span>
+              <span>Lüks</span>
+            </div>
+          </div>
+          <div class="hotel-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Burj+Al+Arab+Jumeirah')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Burj Al Arab, Dubayın simvolu sayılır. Yelkən şəkilli dizaynı və eksklüziv xidmətləri ilə məşhurdur." data-price="2000+ AED / Gecə">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="hotel-card" data-name="Atlantis, The Palm" data-location="http://googleusercontent.com/maps/place/Atlantis,+The+Palm">
+          <div class="rating">4.8</div>
+          <div class="place-thumb">
+             <img src="URL BURA" alt="Atlantis, The Palm şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Atlantis, The Palm <span class="price">Elit</span></div>
+            <div class="place-meta">Palma Cümeyra adasının başında yerləşir.</div>
+            <div class="place-tags">
+              <span>5 Ulduz</span>
+              <span>Su Parkı</span>
+            </div>
+          </div>
+          <div class="hotel-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Atlantis,+The+Palm')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Atlantis otelinin öz su parkı (Aquaventure) və nəhəng akvariumu (The Lost Chambers) var. Ailələr üçün ideal seçimdir." data-price="1200+ AED / Gecə">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="hotel-card" data-name="Address Sky View" data-location="http://googleusercontent.com/maps/place/Address+Sky+View">
+          <div class="rating">4.7</div>
+          <div class="place-thumb">
+             <img src="URL BURA" alt="Address Sky View şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Address Sky View <span class="price">Yüksək</span></div>
+            <div class->place-meta">Burc Xəlifəyə mənzərəli məşhur otel.</div>
+            <div class="place-tags">
+              <span>5 Ulduz</span>
+              <span>Infinity Pool</span>
+            </div>
+          </div>
+          <div class="hotel-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Address+Sky+View')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Burc Xəlifəyə birbaşa mənzərəsi olan müasir otel. Məşhur dam hovuzu ilə tanınır." data-price="800+ AED / Gecə">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="xestexanalar" class="tab-content hidden">
+      <h3>Xəstəxanalar</h3>
+      <div class="hosp-grid">
+        <div class="hospital">
+            <div class="hospital-thumb">
+                <img src="URL BURA" alt="Mediclinic City Hospital Şəkli">
+            </div>
+            <div class="hospital-body">
+                <strong><i class="fas fa-hospital-alt"></i> Mediclinic City Hospital</strong>
+                <div class="small-meta"><strong>Ünvan:</strong> Dubay Sağlamlıq Şəhəri</div>
+                <div class="small-meta"><strong>Telefon:</strong> +971 4 435 99 99</div>
+                <div class="small-meta">Təcili: <span class="emergency-number">998</span></div>
+                <div class="svc-tags">
+                    <span>Beynəlxalq</span>
+                    <span>Təcili yardım</span>
+                    <span>Cərrahiyyə</span>
+                </div>
+            </div>
+            <div class="hospital-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Mediclinic+City+Hospital')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+            </div>
+        </div>
+
+        <div class="hospital">
+            <div class="hospital-thumb">
+                <img src="URL BURA" alt="American Hospital Dubai Şəkli">
+            </div>
+            <div class="hospital-body">
+                <strong><i class="fas fa-hospital-alt"></i> American Hospital Dubai</strong>
+                <div class="small-meta"><strong>Ünvan:</strong> Dubay, Oud Metha</div>
+                <div class="small-meta"><strong>Telefon:</strong> +971 4 377 55 00</div>
+                <div class="small-meta">Təcili: <span class="emergency-number">998</span></div>
+                <div class="svc-tags">
+                    <span>Təcili yardım</span>
+                    <span>Mütəxəssislər</span>
+                    <span>ABŞ Standartı</span>
+                </div>
+            </div>
+            <div class="hospital-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/American+Hospital+Dubai')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="viza" class="tab-content hidden">
+      <h3>Viza və Sərhəd Məlumatları</h3>
+      <div class="viza-grid">
+        <div class="viza-card">
+          <h4><i class="fas fa-info-circle"></i> Viza Tələbləri</h4>
+          <ul class="list viza-list">
+            <li><strong>Tələb olunur:</strong> Xeyr (Azərbaycan vətəndaşları üçün)</li>
+            <li><strong>Giriş:</strong> Aeroportda pulsuz viza verilir (30 gün)</li>
+            <li><strong>Pasport müddəti:</strong> Səfərdən sonra ən azı 6 ay etibarlı olmalıdır</li>
+          </ul>
+        </div>
+
+        <div class="viza-card">
+          <h4><i class="fas fa-list-ol"></i> Giriş Prosesi</h4>
+          <ol class="list viza-list">
+            <li><strong>Sərhəddə:</strong> Pasport təqdim edin</li>
+            <li><strong>Viza:</strong> Pasportunuza pulsuz möhür vurulur</li>
+            <li><strong>Qeyd:</strong> Viza müddətini uzatmaq mümkündür</li>
+          </ol>
+        </div>
+      </div>
+
+      <h4 style="margin-top:24px; font-size: 18px; color: #fff;">Lazımı Sənədlər</h4>
+      <div class="tag-container">
+        <div class="tag-item" style="border-bottom-color: var(--info);">
+          <strong>Pasport</strong>
+          <small>Etibarlı beynəlxalq pasport</small>
+        </div>
+        <div class="tag-item" style="border-bottom-color: var(--success);">
+          <strong>Bilet</strong>
+          <small>Geri dönüş bileti (mütləqdir)</small>
+        </div>
+        <div class="tag-item" style="border-bottom-color: var(--warning);">
+          <strong>Otel Rezervasiyası</strong>
+          <small>Yaşayış yerinin sübutu (tövsiyə olunur)</small>
+        </div>
+      </div>
+
+      <h4 style="margin-top:24px; font-size: 18px; color: #fff;">Məsləhətlər</h4>
+      <ul class="list" style="margin-top: 12px;">
+        <li><span class="note-tag tag-ipucu">İpucu</span> Hava limanında pulsuz Wi-Fi istifadə edin</li>
+        <li><span class="note-tag tag-meslehet">Məsləhət</span> Dubayda isti hava şəraitinə uyğun geyim geyinin</li>
+        <li><span class="note-tag tag-diqqət">Diqqət</span> İçki qadağası və davranış qaydalarına ciddi riayət edin</li>
+      </ul>
+    </section>
+
+    <section id="neqliyat" class="tab-content hidden">
+      <h3>Nəqliyyat Məlumatları</h3>
+
+      <div class="transport-container">
+        <div class="transport-card">
+          <h4>İctimai Nəqliyyat (Dubay)</h4>
+          <ul class="list">
+            <li><strong>Metro:</strong> 3–7.50 AED (NOL Kart ilə)</li>
+            <li><strong>Avtobus:</strong> 3–7.50 AED</li>
+            <li><strong>Kart:</strong> NOL Kart (Gümüş, Qızıl və s.)</li>
+            <li><strong>Qeyd:</strong> Taksilər və metro əsas nəqliyyat vasitələridir</li>
+          </ul>
+        </div>
+
+        <div class="transport-card">
+          <h4>Taksi Xidmətləri</h4>
+          <ul class="list">
+            <li><strong>Tətbiqlər:</strong> Careem, Uber, DTC Taxi App</li>
+            <li><strong>Başlanğıc:</strong> 5 – 12 AED</li>
+            <li><strong>Km:</strong> 2 – 3 AED / km</li>
+            <li><strong>Qeyd:</strong> Hava limanı taksiləri 25 AED-dən başlayır.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="transport-container" style="margin-top: 16px;">
+        <div class="transport-card">
+          <h4>Hava Limanı (Dubay)</h4>
+          <ul class="list">
+            <li><strong>Metro:</strong> Qırmızı xətt birbaşa Dubay Mall-a gedir (Pulsuz NOL kart almaq olar)</li>
+            <li><strong>Taksi:</strong> 80 – 120 AED (Mərkəzə)</li>
+            <li><strong>Qeyd:</strong> Dubay Metrosu hava limanının Terminal 1 və 3-ə xidmət edir.</li>
+          </ul>
+        </div>
+
+        <div class="transport-card">
+          <h4>Nəqliyyat Məsləhətləri</h4>
+          <ul class="list">
+            <li><strong>İpucu:</strong> NOL Gümüş Kartı ən populyardır və sərfəlidir.</li>
+            <li><strong>Məsləhət:</strong> Taksi tətbiqləri ilə qiyməti əvvəlcədən təyin edin.</li>
+            <li><strong>Diqqət:</strong> Metro və ictimai nəqliyyatda yemək-içmək qadağandır.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="dil" class="tab-content hidden">
+      <h3>Dil — Əsas ifadələr və tələffüz</h3>
+      <p style="color:var(--muted); text-align: center;">Hər sətirdə "Oxu" düyməsinə basaraq Ərəb dilində sözün tələffüzünü dinləyə bilərsiniz.</p>
+
+      <div id="vocabGridCards" class="vocab-grid-cards">
+        </div>
+    </section>
+
+    <section id="tehlukesizlik" class="tab-content hidden">
+      <h3>Təhlükəsizlik və Qanunlar</h3>
+
+      <div class="safety-layout">
+        <div class="safety-top">
+          <div class="safety-card-main">
+            <h4><i class="fas fa-phone-volume"></i> Təcili Nömrələr</h4>
+            <ul class="emergency-list">
+              <li>Polis: <span class="emergency-number-box">999</span></li>
+              <li>Təcili Tibb: <span class="emergency-number-box">998</span></li>
+              <li>Yanğın: <span class="emergency-number-box">997</span></li>
+            </ul>
+          </div>
+
+          <div class="safety-card-main">
+            <h4><i class="fas fa-gavel" style="color: var(--info);"></i> Yerli Qanunlar</h4>
+            <ul class="local-laws-list list">
+              <li>İctimai yerlərdə **spirtli içki qadağandır** (yalnız lisenziyalı məkanlarda)</li>
+              <li>İctimai yerlərdə **həddindən artıq açıq geyim** qadağandır</li>
+              <li>**Narkotik maddələr** (o cümlədən bəzi dərmanlar) qəti qadağandır</li>
+              <li>Küçədə **öpüşmək** və ya **həddindən artıq sevgi nümayişi** qadağandır</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="safety-mid">
+          <div class="safety-mid-card">
+            <h4><i class="fas fa-user-shield"></i> Şəxsi Təhlükəsizlik</h4>
+            <ul class="list">
+              <li>BƏƏ **çox təhlükəsizdir**, lakin ehtiyatı əldən verməyin</li>
+              <li>Qiymətli əşyaları **qapalı çantalarda** saxlayın</li>
+              <li>Günəşdən və **dehidrasiyadan** qorunun</li>
+            </ul>
+          </div>
+
+          <div class="safety-mid-card" style="border-bottom-color: var(--info);">
+            <h4><i class="fas fa-wifi" style="color: var(--info);"></i> Rabitə</h4>
+            <ul class="list">
+              <li>Yerli sim kart alın (Du, Etisalat)</li>
+              <li>**WhatsApp zəngləri** (VoIP) işləməyə bilər (Mətn və səsli mesajlar işləyir)</li>
+              <li>VPN-lərdən qeyri-qanuni istifadəyə görə cəza verilə bilər</li>
+            </ul>
+          </div>
+
+          <div class="safety-mid-card" style="border-bottom-color: var(--warning);">
+            <h4><i class="fas fa-map-marker-alt" style="color: var(--warning);"></i> Yolgetirmə</h4>
+            <ul class="list">
+              <li>Metro çox rahatdır (xüsusilə Dubayda)</li>
+              <li>**Qadınlar üçün** metroda və avtobuslarda xüsusi bölmələr var</li>
+              <li>Yanınızda həmişə bir miqdar **nəğd AED** saxlayın</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="safety-bottom">
+          <h4>Diqqət: Ümumi Fırıldaqlar</h4>
+          <div class="fraud-grid">
+            <div class="fraud-item">
+              <strong>Taksi Fırıldaqları</strong>
+              <small>Qara taksilər rəsmi taksilərdən (Dubay Taksi Korporasiyası) daha baha olur</small>
+            </div>
+            <div class="fraud-item">
+              <strong>Pul Dəyişmə</strong>
+              <small>Ticarət mərkəzlərindəki "Exchange" məntəqələrini istifadə edin (küçə satıcılarından yox)</small>
+            </div>
+            <div class="fraud-item">
+              <strong>İçki Qadağası</strong>
+              <small>İctimai yerlərdə sərxoş vəziyyətdə olmaq həbslə nəticələnə bilər</small>
+            </div>
+            <div class="fraud-item">
+              <strong>Yol Yardımı</strong>
+              <small>Qeyri-rəsmi agentlərin tur təklifləri həmişə etibarlı olmur</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>©Nicat Hüseynli - Müəllif Hüquqları qorunur - 2025</footer>
+  </div>
+  
+  <div id="detailsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">×</span>
+      <div class="modal-body">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDescription"></p>
+        <button id="modalReserveBtn" class="reserve-btn" onclick="openReservationModalFromDetails()">Online Rezerv Et</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="reservationModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">×</span>
+      <div class="modal-body">
+        <h3 id="reservationTitle"></h3>
+        <p style="color: var(--warning);">Rezervasiya</p>
+        
+        <form id="reservationForm" class="reservation-form">
+            <input type="text" id="reserveName" placeholder="Ad Soyad" required>
+            <input type="email" id="reserveEmail" placeholder="Email ünvanı" required>
+            
+            <label for="reserveTime" style="color: var(--muted); font-size: 13px; margin-top: 5px;">Saat seçin (Məs: 19:30):</label>
+            <input type="text" id="reserveTime" placeholder="Saat daxil edin" required> 
+            
+            <select id="reserveGuests">
+                <option value="1">1 Nəfər</option>
+                <option value="2">2 Nəfər</option>
+                <option value="3">3 Nəfər</option>
+                <option value="4+">4+ Nəfər</option>
+            </select>
+            <input type="date" id="reserveDate" required>
+
+            <button type="submit" class="confirm-btn">Rezervasiyanı Göndər</button>
+            <div id="reservationMessage" style="display:none;">Rezerv qeydə alındı! Təşəkkür edirik.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const detailsModal = document.getElementById('detailsModal');
+    const reservationModal = document.getElementById('reservationModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const reservationTitle = document.getElementById('reservationTitle');
+    const modalReserveBtn = document.getElementById('modalReserveBtn');
+    const reservationForm = document.getElementById('reservationForm');
+    const reservationMessage = document.getElementById('reservationMessage');
+    const timeDisplay = document.getElementById('timeDisplay');
+    let currentReservationName = ''; 
+
+    // ********* BƏƏ SAATINI GÖSTƏRƏN FUNKSIYA (UTC+4) *********
+    function updateTurkeyTime() {
+        const now = new Date();
+        const uaeOffset = 0; // BƏƏ Bakı ilə eyni saat qurşağındadır
+        const uaeTime = new Date(now.getTime() + uaeOffset * 60 * 1000);
+        
+        const hours = uaeTime.getHours().toString().padStart(2, '0');
+        const minutes = uaeTime.getMinutes().toString().padStart(2, '0');
+        const seconds = uaeTime.getSeconds().toString().padStart(2, '0');
+        
+        timeDisplay.textContent = `${hours}:${minutes}:${seconds} (UTC+4)`;
+    }
+    
+    // ********* TABS AND MODAL LOGIC *********
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+    
+    // Tab switching function
+    tabs.forEach(tab=>{
+        tab.addEventListener('click', ()=>{
+            tabs.forEach(t=>t.classList.remove('active'));
+            tab.classList.add('active');
+            const target = tab.dataset.tab;
+            contents.forEach(c=>{
+                if(c.id === target) {
+                    c.style.opacity = '0';
+                    c.classList.remove('hidden');
+                    setTimeout(() => { c.style.opacity = '1'; }, 10);
+                }
+                else c.classList.add('hidden');
+            });
+            window.scrollTo({top:0,behavior:'smooth'});
+        });
+    });
+
+    // Close modal function
+    document.querySelectorAll('.close-btn').forEach(btn => {
+        btn.onclick = function() {
+            detailsModal.style.display = 'none';
+            reservationModal.style.display = 'none';
+            reservationMessage.style.display = 'none';
+            reservationForm.style.display = 'block';
+            reservationForm.reset();
+        }
+    });
+
+    // Function to open the main reservation modal
+    window.openReservationModal = function(name) {
+        currentReservationName = name;
+        reservationTitle.textContent = "Rezervasiya: " + name;
+        reservationModal.style.display = 'block';
+    }
+
+    // Function to handle opening the reservation modal from inside the Details modal
+    window.openReservationModalFromDetails = function() {
+        detailsModal.style.display = 'none';
+        reservationTitle.textContent = "Rezervasiya: " + modalTitle.textContent;
+        reservationModal.style.display = 'block';
+    }
+
+    // Open details/reservation modal logic (FIXED FOR PLACES TAB)
+    document.querySelectorAll('.details-open').forEach(btn => {
+        btn.onclick = function() {
+            const card = this.closest('.place-card') || this.closest('.hotel-card') || this.closest('.restaurant-card');
+            const name = card.dataset.name;
+            const info = card.dataset.info;
+            const type = this.dataset.type;
+
+            // XÜSUSİ DÜZƏLİŞ: Əgər Places tabında Yaxın Restoran düyməsidir
+            if (card.classList.contains('place-card') && btn.classList.contains('fa-utensils')) {
+                // Konum kartlarında "Yaxın Restoran" düyməsinin klikləmə məntiqi
+                const restaurantName = card.dataset.restaurant; // Datadan restoran adı alınır
+                window.openReservationModal(restaurantName);
+                return;
+            }
+            
+            modalTitle.textContent = name;
+            modalDescription.textContent = info;
+            detailsModal.style.display = 'block';
+
+            // Show 'Online Rezerv Et' button for reservation types (Restoranlar və Otellər)
+            if (type === 'reservation') { 
+                modalReserveBtn.style.display = 'inline-block';
+            } else {
+                modalReserveBtn.style.display = 'none';
+            }
+        };
+    });
+
+    // Reservation Form Submission Logic (FIXED)
+    reservationForm.onsubmit = function(event) {
+        event.preventDefault();
+        
+        reservationForm.style.display = 'none';
+        
+        const itemName = reservationTitle.textContent.replace("Rezervasiya: ", "");
+                         
+        const selectedTime = document.getElementById('reserveTime').value;
+                         
+        reservationMessage.textContent = `Rezervasiyanız ("${itemName}") saat ${selectedTime} üçün qeydə alındı! Təşəkkür edirik.`;
+        reservationMessage.style.display = 'block';
+        
+        setTimeout(() => {
+            reservationModal.style.display = 'none';
+            reservationForm.style.display = 'block';
+            reservationMessage.style.display = 'none';
+            reservationForm.reset();
+        }, 3000);
+    };
+
+    // ********* DİL VƏ SƏS LOGİKASI (ƏRƏB DİLİ KONTEKSTİ) *********
+    const vocabData = {
+      umumI: [
+        {az:'Salam',tr:'Marhaba (مرحبا)',pron:'/mar-ha-ba/', cat:'ÜMUMİ'},
+        {az:'Sağ olun',tr:'Şükran (شكراً)',pron:'/şuk-ran/', cat:'ÜMUMİ'},
+        {az:'Bəli',tr:'Naam (نعم)',pron:'/naam/', cat:'ÜMUMİ'},
+        {az:'Xeyr',tr:'La (لا)',pron:'/la/', cat:'ÜMUMİ'},
+        {az:'Bağışlayın',tr:'Asif (آسف)',pron:'/a-sif/', cat:'ÜMUMİ'},
+        {az:'Nə qədərdir?',tr:'Kam yəkləf? (كم يكلف؟)',pron:'/kam ya-klif/', cat:'ÜMUMİ'},
+        {az:'Haradadır?',tr:'Ayne? (أين؟)',pron:'/ay-na/', cat:'ÜMUMİ'}
+      ],
+      yemek: [
+        {az:'Acam',tr:'Ana jaian (أنا جائع)',pron:'/a-na ja-ian/', cat:'YEMƏK'},
+        {az:'Su',tr:'Ma (ماء)',pron:'/maa/', cat:'YEMƏK'},
+        {az:'Çörək',tr:'Xubz (خبز)',pron:'/xubz/', cat:'YEMƏK'},
+        {az:'Ət',tr:'Lahm (لحم)',pron:'/lahm/', cat:'YEMƏK'},
+        {az:'Hesab',tr:'Əl Hisab (الحساب)',pron:'/əl hi-saab/', cat:'YEMƏK'},
+        {az:'Ləzzətli!',tr:'Laziz! (لذيذ)',pron:'/la-ziz/', cat:'YEMƏK'}
+      ],
+      yol: [
+        {az:'Taksi',tr:'Taksa (تاكسي)',pron:'/tak-si/', cat:'NƏQLİYYAT'},
+        {az:'Metro',tr:'Metro (مترو)',pron:'/me-tro/', cat:'NƏQLİYYAT'},
+        {az:'Hava limanı',tr:'Mətar (مطار)',pron:'/ma-taar/', cat:'NƏQLİYYAT'},
+        {az:'Otel',tr:'Fundaq (فندق)',pron:'/fun-daq/', cat:'NƏQLİYYAT'},
+        {az:'Sağa',tr:'Yamin (يمين)',pron:'/ya-min/', cat:'NƏQLİYYAT'},
+        {az:'Sola',tr:'Yasar (يسار)',pron:'/ya-saar/', cat:'NƏQLİYYAT'},
+      ],
+      techili: [
+        {az:'Kömək!',tr:'Musaada! (مساعدة)',pron:'/mu-saa-da/', cat:'TƏCİLİ'},
+        {az:'Polis',tr:'Şurta (شرطة)',pron:'/şur-ta/', cat:'TƏCİLİ'},
+        {az:'Xəstəxana',tr:'Müstəşfa (مستشفى)',pron:'/mus-təş-fa/', cat:'TƏCİLİ'},
+        {az:'Təcili',tr:'Tavari (طوارئ)',pron:'/ta-va-ri/', cat:'TƏCİLİ'},
+      ]
+    };
+    
+    // Dil kartlarının yaradılması
+    const vocabGridCards = document.getElementById('vocabGridCards');
+
+    const allVocab = [
+      ...vocabData.umumI,
+      ...vocabData.yemek,
+      ...vocabData.yol,
+      ...vocabData.techili
+    ];
+
+    allVocab.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'vocab-card';
+      const textToSpeak = item.tr.split('(')[0].trim();
+      
+      card.innerHTML = `
+        <div class="vocab-item-group">
+            <small>${item.az}</small>
+            <strong>${item.tr}</strong>
+            <small>${item.pron}</small>
+        </div>
+        <div class="vocab-item-group vocab-tr-section">
+            <div class="vocab-category">${item.cat}</div>
+            <button class="vocab-play-btn" data-text="${textToSpeak}" title="Tələffüzü dinlə">
+                <i class="fas fa-volume-up"></i> Oxu
+            </button>
+        </div>
+      `;
+      vocabGridCards.appendChild(card);
+    });
+
+    // ********* SƏS TƏLƏFFÜZÜ FUNKSİYASI (ƏRƏB DİLİ ÜÇÜN) *********
+    function speak(text){
+      if(!('speechSynthesis' in window)) return alert('Təəssüf ki, brauzeriniz səs çıxarma funksiyasını dəstəkləmir.');
+      
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.95;
+      u.pitch = 1.0;
+      
+      const voices = speechSynthesis.getVoices();
+      
+      // Ərəb səsi axtarılır
+      let preferredVoice = voices.find(v => v.lang.toLowerCase().startsWith('ar'));
+      
+      // Əgər Ərəb səsi tapılmazsa, İngilis səsi istifadə olunur (ümumi səs)
+      u.voice = preferredVoice || voices.find(v => v.lang.toLowerCase().startsWith('en')) || voices[0];
+      u.lang = 'ar-AE'; 
+      
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }
+
+    document.addEventListener('click', (e)=>{
+      if(e.target && e.target.classList.contains('vocab-play-btn')){
+        const t = e.target.getAttribute('data-text');
+        if(t) speak(t);
+      }
+    });
+
+    // Initial calls
+    updateTurkeyTime();
+    setInterval(updateTurkeyTime, 1000);
+    
+  </script>
+</body>
+</html>

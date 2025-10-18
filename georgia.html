@@ -1,0 +1,1484 @@
+<!doctype html>
+<html lang="az">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Turizm Helper — Gürcüstan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ/2KjYI0dE83eE6I0p8XqM7l+z8x8R9E7/Q8x8R7L5P4Q2+uT1g2H3G4N4P5w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* GÜRCÜSTAN ÜÇÜN RƏNGLƏR (Ağ, Qırmızı - Bayraqdan) */
+    :root{
+      --bg:#050d1a;
+      --card:#0d1118; 
+      --muted:#9aa4b2;
+      --accent:#d90707; /* Qırmızı aksent (Gürcüstan) */
+      --glass: rgba(255,255,255,0.05);
+      --shadow-color: rgba(0,0,0,0.7);
+      --danger: #ef4444; 
+      --success: #10b981; 
+      --warning: #f59e0b; 
+      --info: #3b82f6; 
+      --play-btn-bg: #4a4a4a; 
+      --play-btn-color: #fff; 
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#03080e,#071523);color:#e6eef6;padding:18px}
+    .wrap{max-width:1100px;margin:0 auto}
+    header{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        margin-bottom:24px;
+        padding:8px 0; 
+        position: relative;
+    }
+
+    .return-home {
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-decoration: none;
+        color: #000;
+        padding: 10px 15px;
+        border-radius: 8px;
+        background: #ffffff; 
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: 0.2s ease-out;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        margin-top: 10px; 
+        font-size: 18px; 
+        font-weight: bold;
+    }
+    .return-home:hover {
+        background: #f0f0f0;
+        color: var(--accent);
+        transform: translateY(-2px);
+    }
+    .return-home i {
+        font-size: 20px; 
+    }
+    
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#b31d1d);display:flex;align-items:center;justify-content:center;color:#e6eef6;font-weight:800;font-size:28px;
+          box-shadow: 0 0 15px rgba(217, 7, 7, 0.4);}
+    h1{margin:0;font-size:28px}
+    .meta{color:var(--muted);font-size:14px}
+
+    /* tabs (Şəkildəki kimi yalnız ikon və text) */
+    .tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;
+          background: #111; /* Bütün tablar üçün arxa fon */
+          border-radius: 12px;
+          padding: 8px;}
+    .tab{padding:10px 16px;background:transparent;border-radius:8px;cursor:pointer;
+          color:#e6eef6;font-weight:500;
+          transition:0.2s ease-out;
+          display:flex; align-items:center; gap:8px;} /* İkonlar yoxdursa, text mərkəzdə qalır */
+    .tab:hover{background:rgba(255,255,255,0.08);color:#e6eef6;}
+    .tab.active{background:linear-gradient(135deg, #b31d1d, var(--accent)); 
+          color:#fff;font-weight:600;
+          box-shadow: 0 0 10px rgba(217, 7, 7, 0.5);
+          transform:translateY(0)}
+    .tab.active i{color:#fff;}
+
+    /* tab content base */
+    .tab-content{background:var(--card);padding:24px;border-radius:16px;
+          box-shadow: 0 10px 30px var(--shadow-color), 0 0 5px rgba(255,255,255,0.05);
+          margin-bottom:24px;
+          transition:opacity 0.3s ease-in-out;}
+    .tab-content.hidden{display:none}
+    .tab-content h3{text-align: center; margin-bottom: 24px; font-size: 24px; font-weight: 700; color: #fff; padding-bottom: 0; border: none;}
+    .small-meta{color:var(--muted);font-size:13px;margin-top:6px}
+
+    /* Ümumi (Info Card) styles - Şəkilə uyğun saxlanıldı */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .info-card {
+      background: #111; /* Kart üçün tünd fon */
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.2s ease-out;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    .info-card:hover {
+      background: #1a1a1a;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+    }
+    .info-icon {
+      font-size: 32px;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .info-card strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .info-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Yerlər layout - Şəkilə uyğun */
+    .places-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px} 
+    .place-card, .hotel-card, .restaurant-card { /* Restoran kartı əlavə edildi */
+        background:#111;
+        padding:0;
+        border-radius:12px;
+        overflow: hidden;
+        transition:0.2s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        border: 1px solid #222;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .place-card:hover, .hotel-card:hover, .restaurant-card:hover {transform:translateY(-5px);box-shadow: 0 10px 25px rgba(0,0,0,0.6);}
+    .place-thumb, .hotel-thumb, .restaurant-thumb {width:100%;height:180px;background:#081423;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;position:relative;}
+    .place-thumb img, .hotel-thumb img, .restaurant-thumb img {width:100%; height: 100%; object-fit: cover; opacity: 0.8;}
+    .place-info, .hotel-info, .restaurant-info {padding:12px 12px 0 12px; flex-grow: 1; position:relative;}
+    .place-title, .hotel-title, .restaurant-title {font-weight:700;font-size:18px;margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center;}
+    .place-title .price, .hotel-title .price, .restaurant-title .price {font-size: 16px; color: var(--accent);}
+    .place-meta, .hotel-meta, .restaurant-meta {color:var(--muted);font-size:13px;margin-bottom: 8px;}
+    .rating{background:var(--accent);color:#000;padding:6px 10px;border-radius:0 0 0 10px;font-weight:700;position:absolute;top:0;right:0;font-size:15px; z-index: 10;}
+    .place-tags span, .hotel-tags span, .restaurant-tags span {background: #222; color: #fff; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px; display: inline-block; margin-top: 4px;}
+
+    /* DƏYİŞİKLİK: Ətraflı/Locasiya düymələri */
+    .place-actions, .hospital-actions, .hotel-actions, .restaurant-actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 12px 12px 12px;
+        border-top: 1px solid #1a1a1a;
+        gap: 8px; /* Düymələr arasında boşluq */
+    }
+    .action-btn {
+        background: var(--accent);
+        color: #fff;
+        padding: 8px 10px; /* Daha yığcam padding */
+        border-radius: 6px;
+        font-size: 13px; /* Daha yığcam font ölçüsü */
+        font-weight: 600;
+        transition: 0.15s;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        align-items: center;
+        flex-grow: 1; 
+        justify-content: center; 
+        margin: 0;
+    }
+    .action-btn i {
+        margin-right: 4px; /* İkon və mətn arasında daha az boşluq */
+    }
+    .action-btn.location {
+        background: #222;
+        border: 1px solid var(--muted);
+        color: var(--muted);
+        flex-grow: 0.6; /* Location düyməsi daha kiçik */
+    }
+    .action-btn:hover {
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+
+
+    /* Yeməklər grid */
+    .food-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+    .food-card{background:#111;padding:0;border-radius:12px;text-align:left;overflow: hidden;
+          transition:0.2s;box-shadow: 0 4px 15px rgba(0,0,0,0.4);border: 1px solid #222; cursor: pointer;}
+    .food-card:hover{transform:translateY(-5px);box-shadow: 0 10px 25px rgba(0,0,0,0.6);}
+    .food-thumb{width:100%;height:180px;background:#081423;display:flex;align-items:center;justify-content:center;color:var(--muted);overflow: hidden;}
+    .food-thumb img {width:100%; height: 100%; object-fit: cover; opacity: 0.7;}
+    .food-info {padding: 12px;}
+    .food-name{font-weight:700;margin-top:0;font-size:18px}
+    .food-desc{color:var(--muted);font-size:13px;margin-top:4px}
+    .food-price{margin-top:8px;font-weight:700;color:var(--success); background: #1a1a1a; padding: 4px 8px; border-radius: 6px; display: inline-block; font-size: 13px;}
+    .food-tags span {background: #222; color: #fff; padding: 4px 8px; border-radius: 6px; font-size: 11px; margin-right: 6px; display: inline-block; margin-top: 8px;}
+
+
+    /* Hospitals 2 columns */
+    .hosp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:16px}
+    .hospital{background:#111;padding:20px;border-radius:12px;
+          border: 1px solid #222;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+          display: flex; 
+          gap: 16px; 
+          align-items: flex-start;} 
+    .hospital-thumb { 
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        background: #222;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .hospital-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .hospital-body { 
+        flex-grow: 1;
+    }
+    .hospital strong{display:flex;align-items:center;margin-bottom:12px;font-size:18px; color: var(--danger);}
+    .hospital strong i {font-size: 20px; margin-right: 10px; color: var(--danger);}
+    .hospital .small-meta{color:var(--muted);font-size:14px;margin-bottom: 8px;}
+    .hospital .small-meta strong {display: inline; font-size: 14px; color: #fff; font-weight: 500;}
+    .emergency-number {background: var(--danger); color: #fff; padding: 4px 10px; border-radius: 6px; font-weight: 700; display: inline-block; margin-top: 4px; margin-bottom: 12px;}
+    .svc-tags span {background: #222; color: var(--accent); padding: 4px 10px; border-radius: 6px; font-size: 12px; margin-right: 6px; display: inline-block; margin-top: 8px; border: 1px solid rgba(6, 182, 212, 0.4);}
+
+
+    /* MODAL (Yeni pəncərə) üçün stillər */
+    .modal {
+        display: none; 
+        position: fixed; 
+        z-index: 1000; 
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.8); 
+        padding-top: 60px;
+    }
+    .modal-content {
+        background-color: var(--card);
+        margin: 5% auto; 
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 16px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close-btn:hover,
+    .close-btn:focus {
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .modal-body p {
+        color: var(--muted);
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    .modal-body h4 {
+        color: var(--accent);
+        margin-top: 0;
+        border-bottom: 1px solid #222;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
+    .reservation-form input, .reservation-form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        border: 1px solid #333;
+        background: #1a1a1a;
+        color: #fff;
+        font-size: 14px;
+    }
+    .reserve-btn, .confirm-btn {
+        background: var(--success);
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: 0.2s;
+    }
+    .reserve-btn:hover, .confirm-btn:hover {
+        background: #159b6f;
+    }
+    
+    /* Rezervasiya Təsdiq Mesajı */
+    #reservationMessage {
+        padding: 15px;
+        margin-top: 15px;
+        background: var(--success);
+        color: #fff;
+        border-radius: 8px;
+        text-align: center;
+        display: none;
+        font-weight: 600;
+    }
+
+    /* DİL - Çərçivəli stil (Yeniləndi) */
+    .vocab-grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .vocab-card {
+      background: #1a1a1a;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #222;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* İki sütun */
+      gap: 12px;
+      align-items: center;
+    }
+    .vocab-item-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-right: 10px;
+        font-size: 14px; 
+    }
+    .vocab-item-group:nth-child(2) {
+        border-left: 1px solid #222;
+        padding-left: 15px;
+        height: 100%;
+        display: flex;
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center;
+    }
+    .vocab-item-group strong {
+        font-size: 16px; 
+        color: #fff;
+    }
+    .vocab-item-group small {
+        color: var(--muted);
+        font-size: 12px;
+    }
+    .vocab-category {
+        background: #222;
+        color: var(--muted);
+        padding: 3px 6px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+    .vocab-play-btn {
+        background: var(--accent);
+        color: #000;
+        border: none;
+        padding: 6px 10px; 
+        border-radius: 4px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.15s;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    /* Viza, Nəqliyyat, Təhlükəsizlik üçün orjinal strukturun bərpası */
+    /* Qutuların iki sütunlu olması üçün tənzimləmə */
+    .viza-grid, .transport-container, .safety-top {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 16px;
+    }
+    /* Məsləhət və Fırıldaqlar bölmələri üçün də eyni iki sütunlu qrid tətbiq edilir */
+    .safety-mid, .fraud-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+    }
+
+    .viza-card h4, .transport-card h4, .safety-card-main h4 {
+        border-bottom: 1px solid #222;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+        font-size: 18px; /* Başlıq ölçüsü bərpa edilir */
+    }
+    .viza-list li, .list li, .local-laws-list li, .emergency-list li {
+        text-align: left;
+        padding: 4px 0;
+        font-size: 14px;
+    }
+    .viza-list strong, .list li strong {
+        font-weight: 600;
+        color: #fff;
+    }
+    .safety-mid-card {
+        background: #111; /* Kart fonu bərpa edilir */
+        border: 1px solid #222;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+    .safety-mid-card h4 {
+        margin-top: 0;
+        font-size: 16px;
+    }
+    .fraud-item {
+        border-left: 3px solid var(--danger);
+        padding-left: 10px;
+    }
+
+    /* Responsivlik dəyişiklikləri */
+    @media(max-width:900px){
+      .places-grid{grid-template-columns:repeat(2,1fr)} 
+      .food-grid{grid-template-columns:repeat(2,1fr)} 
+      .hosp-grid{grid-template-columns:1fr}
+      .viza-grid, .transport-container, .safety-top, .safety-mid, .fraud-grid {grid-template-columns: 1fr;}
+      .vocab-grid-cards {grid-template-columns: repeat(1, 1fr);} /* Tablet görünüşdə bir sütun */
+      .vocab-item-group:nth-child(2) {border-left: none; padding-left: 10px; padding-top: 10px;}
+      .place-actions, .hospital-actions, .hotel-actions, .restaurant-actions {flex-wrap: wrap;}
+      .place-actions button, .hotel-actions button, .restaurant-actions button {flex-grow: 1; min-width: 100px; margin-bottom: 5px;}
+    }
+    @media(max-width:520px){
+      .places-grid{grid-template-columns:1fr} 
+      .food-grid{grid-template-columns:1fr} 
+      .tabs {padding: 4px;}
+      .hospital {flex-direction: column; align-items: stretch;}
+      .hospital-thumb {width: 100%; height: 120px;}
+      .modal-content {width: 95%; margin: 30% auto;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    
+    <a href="index.html" class="return-home">
+        <i class="fas fa-arrow-left"></i>
+        <- 
+    </a>
+
+    <header>
+      <div style="display:flex;gap:12px;align-items:center; width: 100%; justify-content: center;">
+        <div class="logo">🇬🇪</div> 
+        <div>
+          <h1>Georgia</h1>
+          <div class="meta">Capital: Tbilisi • Language: Georgian • Currency: Lari (GEL)</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="tabs" role="tablist" aria-label="Gürcüstan kateqoriyaları">
+      <div class="tab active" data-tab="umumi">Ümumi</div>
+      <div class="tab" data-tab="yerler">Yerlər</div>
+      <div class="tab" data-tab="yemekler">Yeməklər</div>
+      <div class="tab" data-tab="restoranlar">Restoranlar</div> 
+      <div class="tab" data-tab="oteller">Hotellər</div> 
+      <div class="tab" data-tab="xestexanalar">Xəstəxanalar</div>
+      <div class="tab" data-tab="viza">Viza</div>
+      <div class="tab" data-tab="neqliyat">Nəqliyyat</div>
+      <div class="tab" data-tab="dil">Dil</div>
+      <div class="tab" data-tab="tehlukesizlik">Təhlükəsizlik</div>
+    </div>
+
+    <section id="umumi" class="tab-content">
+      <h3>Gürcüstan haqqında ümumi məlumat</h3>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-icon" style="color: var(--info);"><i class="fas fa-info-circle"></i></div>
+          <strong>Ümumi Məlumat</strong>
+          <small>Ölkə haqqında əsas faktlar və məlumatlar</small>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon" style="color: #f59e0b;"><i class="fas fa-clock"></i></div>
+          <strong id="timeDisplay">Yerli Saat</strong>
+          <small>UTC+4 (Bakı ilə eyni)</small>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon" style="color: var(--danger);"><i class="fas fa-phone-alt"></i></div>
+          <strong>Təcili Nömrələr</strong>
+          <small>112 (Ümumi Təcili Xidmət)</small>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon" style="color: var(--success);"><i class="fas fa-money-bill-wave"></i></div>
+          <strong>Valyuta</strong>
+          <small>Lari (GEL)</small>
+        </div>
+      </div>
+
+      <div style="text-align:center; color:var(--muted); font-size:15px; margin-top: 10px;">
+          Bu səhifədə Gürcüstan haqqında səyahət üçün lazım olan bütün məlumatları tapa bilərsiniz.
+      </div>
+
+    </section>
+
+    <section id="yerler" class="tab-content hidden">
+      <h3>Yerlər</h3>
+      <div class="places-grid">
+        
+        <div class="place-card" data-name="Tbilisi Köhnə Şəhər" data-restaurant="Shavi Lomi" data-restaurant-location="http://googleusercontent.com/maps/place/Shavi+Lomi">
+          <div class="rating">4.9</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Tbilisi şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Tbilisi Köhnə Şəhər <span class="price">Pulsuz</span></div>
+            <div class="place-meta">Qədim küçələr, kilsələr və balkonlar.</div>
+            <div class="place-tags">
+              <span>Açıq</span>
+              <span>Tbilisi</span>
+              <span>Tarixi</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Old+Tbilisi')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn" onclick="openReservationModal('Shavi Lomi Restaurant')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Tbilisi Köhnə Şəhəri, dar küçələri, rəngarəng taxta evləri və qədim kilsələri ilə məşhurdur. Narikala Qalası yaxınlıqdadır.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Narikala Qalası" data-restaurant="PurPur" data-restaurant-location="http://googleusercontent.com/maps/place/PurPur">
+          <div class="rating">4.7</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Narikala şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Narikala Qalası <span class="price">Kanat yolu 2.5 GEL</span></div>
+            <div class="place-meta">Tbilisi üzərində mənzərəli qala.</div>
+            <div class="place-tags">
+              <span>Mənzərə</span>
+              <span>Tbilisi</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Narikala+Fortress')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn location" onclick="openReservationModal('PurPur Restaurant')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Narikala, 4-cü əsrə aid qədim bir qaladır. Şəhərə ən yaxşı panoramik mənzərəni təklif edir və kanat yolu ilə qalxmaq mümkündür.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Batumi Bulvarı" data-restaurant="Restaurant Sanapiro" data-restaurant-location="http://googleusercontent.com/maps/place/Restaurant+Sanapiro">
+          <div class="rating">4.8</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Batumi Bulvarı şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Batumi Bulvarı <span class="price">Pulsuz</span></div>
+            <div class="place-meta">Qara dəniz sahilində gəzinti.</div>
+            <div class="place-tags">
+              <span>Dənizkənarı</span>
+              <span>Batumi</span>
+              <span>Gəzinti</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Batumi+Boulevard')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn location" onclick="openReservationModal('Sanapiro Restaurant')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Batumi Bulvarı Qara dəniz sahilində 7 km-dən çox uzanır. Ali və Nino abidəsi burada yerləşir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Kazbegi (Stepantsminda)" data-restaurant="Rooms Hotel Kazbegi" data-restaurant-location="http://googleusercontent.com/maps/place/Rooms+Hotel+Kazbegi">
+          <div class="rating">4.9</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Kazbegi şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Qazbeqi (Stepantsminda) <span class="price">N/A</span></div>
+            <div class="place-meta">Möhtəşəm Qafqaz dağ mənzərələri.</div>
+            <div class="place-tags">
+              <span>Dağ</span>
+              <span>Təbiət</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Stepantsminda')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn location" onclick="openReservationModal('Rooms Hotel Restaurant')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Qazbeqi kəndi Gergeti Üçlük Kilsəsi və Kazbek dağının ətəyində yerləşən, təbiət aşiqələri üçün ideal yerdir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+        
+        <div class="place-card" data-name="Kaxeti Üzüm Bağları" data-restaurant="Pheasant's Tears" data-restaurant-location="http://googleusercontent.com/maps/place/Pheasant's+Tears+Winery">
+          <div class="rating">4.6</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Kaxeti şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Kaxeti (Şərab Regionu) <span class="price">Tadım: 20 GEL</span></div>
+            <div class="place-meta">Gürcüstanın şərabçılıq mərkəzi.</div>
+            <div class="place-tags">
+              <span>Şərab</span>
+              <span>Kənd Həyatı</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Kakheti')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn location" onclick="openReservationModal('Pheasant\'s Tears Winery')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Kaxeti Gürcüstanın tarixi şərabçılıq bölgəsidir. Burada qədim 'kvevri' (torpaq qab) metodları ilə şərab hazırlana bilər.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+
+        <div class="place-card" data-name="Sioni Katedrali" data-restaurant="Azarphesha" data-restaurant-location="http://googleusercontent.com/maps/place/Azarphesha">
+          <div class="rating">4.4</div>
+          <div class="place-thumb">
+            <img src="URL BURA" alt="Sioni Katedrali şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Sioni Katedrali <span class="price">Pulsuz</span></div>
+            <div class="place-meta">Tbilisinin əsas pravoslav kilsələrindən biri.</div>
+            <div class="place-tags">
+              <span>Kilsə</span>
+              <span>Tbilisi</span>
+              <span>Mədəniyyət</span>
+            </div>
+          </div>
+          <div class="place-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Sioni+Cathedral')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn location" onclick="openReservationModal('Azarphesha Restaurant')">
+                    <i class="fas fa-utensils"></i> Yaxın Restoran
+                </button>
+                <button class="action-btn details-open" data-type="place" data-info="Sioni Katedrali, Gürcü pravoslav kilsəsinin ana kilsəsidir və tarixi əhəmiyyətə malikdir.">
+                    <i class="fas fa-info-circle"></i> Ətraflı
+                </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="yemekler" class="tab-content hidden">
+      <h3>Yeməklər (Milli Mətbəx)</h3>
+      <p style="color:var(--muted); text-align: center; margin-bottom: 24px;">Gürcüstanın məşhur milli yeməklərindən seçmələr.</p>
+
+      <div class="food-grid" role="list">
+        <div class="food-card" role="listitem" data-name="Khachapuri (Peynirli Çörək)">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Xaçapuri şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Xaçapuri</div>
+            <div class="food-desc">Peynir ilə doldurulmuş qayıq şəkilli çörək</div>
+            <div class="food-tags">
+              <span>Peynir</span>
+              <span>Xəmir</span>
+              <span>İmeruli/Acaruli</span>
+            </div>
+            <div class="food-price">8–18 GEL</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Khinkali (Ətli Düşbərə)">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Xinkali şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Xinkali</div>
+            <div class="food-desc">Ət və ya göbələk ilə doldurulmuş böyük düşbərələr</div>
+            <div class="food-tags">
+              <span>Ət</span>
+              <span>Şorba</span>
+              <span>Düşbərə</span>
+            </div>
+            <div class="food-price">0.80 – 1.50 GEL / ədəd</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Mchadi (Qarğıdalı Çörəyi)">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Mçadi şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Mçadi</div>
+            <div class="food-desc">Qarğıdalı unundan hazırlanan ənənəvi çörək</div>
+            <div class="food-tags">
+              <span>Qarğıdalı</span>
+              <span>Çörək</span>
+            </div>
+            <div class="food-price">1–3 GEL</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Lobio (Lobyalı Qazan)">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Lobio şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Lobio</div>
+            <div class="food-desc">Ədviyyatlı qırmızı lobyadan qazan yeməyi</div>
+            <div class="food-tags">
+              <span>Lobia</span>
+              <span>Qazan</span>
+              <span>Vegetarian</span>
+            </div>
+            <div class="food-price">10–15 GEL</div>
+          </div>
+        </div>
+
+        <div class="food-card" data-name="Churchkhela (Şirin Şam)">
+          <div class="food-thumb">
+            <img src="URL BURA" alt="Çurçxela şəkli">
+          </div>
+          <div class="food-info">
+            <div class="food-name">Çurçxela</div>
+            <div class="food-desc">Qoz və fındıqla örtülmüş şirin dəri</div>
+            <div class="food-tags">
+              <span>Şirin</span>
+              <span>Qoz</span>
+              <span>Desert</span>
+            </div>
+            <div class="food-price">3–6 GEL</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="restoranlar" class="tab-content hidden">
+      <h3>Ən Yaxşı Restoranlar (Online Rezervasiya)</h3>
+      <div class="places-grid">
+        
+        <div class="restaurant-card" data-name="Shavi Lomi" data-location="http://googleusercontent.com/maps/place/Shavi+Lomi">
+          <div class="rating">4.6</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Shavi Lomi şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Shavi Lomi <span class="price">Orta</span></div>
+            <div class="restaurant-meta">Müasir Gürcü mətbəxi, populyar yer.</div>
+            <div class="restaurant-tags">
+              <span>Müasir</span>
+              <span>Khachapuri</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Shavi+Lomi')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Shavi Lomi, Gürcüstanın ən məşhur restoranlarından biridir. Xinkali və Lobio yeməkləri ilə tanınır.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="restaurant-card" data-name="PurPur" data-location="http://googleusercontent.com/maps/place/PurPur">
+          <div class="rating">4.8</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="PurPur şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">PurPur <span class="price">Yüksək</span></div>
+            <div class="restaurant-meta">Vintage atmosfer, gürcü-avropa mətbəxi.</div>
+            <div class="restaurant-tags">
+              <span>Vintage</span>
+              <span>Avropa</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/PurPur')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="PurPur retro üslubu və gözəl interyeri ilə fərqlənir. Ənənəvi Gürcü şirniyyatları təklif edir.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="restaurant-card" data-name="Azarphesha" data-location="http://googleusercontent.com/maps/place/Azarphesha">
+          <div class="rating">4.7</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Azarphesha şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Azarphesha <span class="price">Yerli</span></div>
+            <div class="restaurant-meta">Yeni Gürcü mətbəxi, qədim region reseptləri.</div>
+            <div class="restaurant-tags">
+              <span>Yerli Mətbəx</span>
+              <span>Kaxetiya</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Azarphesha')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Azarphesha unudulmuş Gürcü region yeməklərini canlandırır. Şərab seçimi zəngindir.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+        
+        <div class="restaurant-card" data-name="Khinkali Factory" data-location="http://googleusercontent.com/maps/place/Khinkali+Factory">
+          <div class="rating">4.3</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Khinkali Factory şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Khinkali Factory <span class="price">Büdcə</span></div>
+            <div class="restaurant-meta">Ən yaxşı xinkali, geniş çeşid.</div>
+            <div class="restaurant-tags">
+              <span>Büdcə</span>
+              <span>Khinkali</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Khinkali+Factory')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Bu, əla xinkali dadmaq üçün ən populyar yerlərdən biridir. Geniş menyu çeşidi var.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="restaurant-card" data-name="Restaurant Sanapiro" data-location="http://googleusercontent.com/maps/place/Restaurant+Sanapiro">
+          <div class="rating">4.5</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Sanapiro şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Restaurant Sanapiro <span class="price">Orta</span></div>
+            <div class="restaurant-meta">Dəniz mənzərəli, Balıq və Gürcü mətbəxi.</div>
+            <div class="restaurant-tags">
+              <span>Dəniz Məhsulları</span>
+              <span>Batumi</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Restaurant+Sanapiro')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Batumi sahilində yerləşən Sanapiro, təzə dəniz məhsulları və gözəl mənzərəsi ilə məşhurdur.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="restaurant-card" data-name="Qaynana Restoranı" data-location="http://googleusercontent.com/maps/place/Restaurant+Pasanauri">
+          <div class="rating">4.4</div>
+          <div class="restaurant-thumb">
+             <img src="URL BURA" alt="Qaynana şəkli">
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-title">Qaynana Restoranı <span class="price">Orta</span></div>
+            <div class="restaurant-meta">Büdcəyə uyğun ənənəvi Gürcü yeməkləri.</div>
+            <div class="restaurant-tags">
+              <span>Büdcə</span>
+              <span>Yerli</span>
+            </div>
+          </div>
+          <div class="restaurant-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Restaurant+Pasanauri')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Gürcüstanda 'Qaynana' adını daşıyan ənənəvi Gürcü mətbəxi təqdim edən məkanların simulyasiyasıdır. Ənənəvi yeməklər təklif edir.">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="oteller" class="tab-content hidden">
+      <h3>Ən Populyar Hotellər</h3>
+      <div class="places-grid">
+        
+        <div class="hotel-card" data-name="Rooms Hotel Tbilisi" data-location="http://googleusercontent.com/maps/place/Rooms+Hotel+Tbilisi">
+          <div class="rating">5.0</div>
+          <div class="place-thumb">
+             <img src="URL BURA" alt="Rooms Hotel şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Rooms Hotel Tbilisi <span class="price">Lüks</span></div>
+            <div class="place-meta">Müasir dizayn, mərkəzdə.</div>
+            <div class="place-tags">
+              <span>4 Ulduz</span>
+              <span>Müasir</span>
+            </div>
+          </div>
+          <div class="hotel-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Rooms+Hotel+Tbilisi')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Tbilisinin ən məşhur dizayn otellərindən biridir. Köhnə Şəhərə yaxın yerləşir." data-price="300 GEL / Gecə">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="hotel-card" data-name="Radisson Blu Iveria Hotel" data-location="http://googleusercontent.com/maps/place/Radisson+Blu+Iveria+Hotel,+Tbilisi">
+          <div class="rating">4.8</div>
+          <div class="place-thumb">
+             <img src="URL BURA" alt="Radisson Blu şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Radisson Blu Iveria Hotel <span class="price">Elit</span></div>
+            <div class="place-meta">Rustaveli prospektində, mənzərəli.</div>
+            <div class="place-tags">
+              <span>5 Ulduz</span>
+              <span>Mərkəzi</span>
+            </div>
+          </div>
+          <div class="hotel-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Radisson+Blu+Iveria+Hotel,+Tbilisi')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Tbilisinin ən tanınmış otellərindən biri. Rustaveli prospektində yerləşir və şəhər mənzərəsi təklif edir." data-price="450 GEL / Gecə">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+        <div class="hotel-card" data-name="Hilton Batumi" data-location="http://googleusercontent.com/maps/place/Hilton+Batumi">
+          <div class="rating">4.5</div>
+          <div class="place-thumb">
+             <img src="URL BURA" alt="Hilton Batumi şəkli">
+          </div>
+          <div class="place-info">
+            <div class="place-title">Hilton Batumi <span class="price">Standart</span></div>
+            <div class="place-meta">Dəniz kənarında, Batumi.</div>
+            <div class="place-tags">
+              <span>5 Ulduz</span>
+              <span>Batumi</span>
+            </div>
+          </div>
+          <div class="hotel-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/Hilton+Batumi')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+                <button class="action-btn details-open" data-type="reservation" data-info="Batumi Bulvarına yaxın yerləşən tanınmış otel. Dəniz mənzərəli otaqlar və yaxşı xidmət təklif edir." data-price="280 GEL / Gecə">
+                    <i class="fas fa-book"></i> Rezerv Et
+                </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="xestexanalar" class="tab-content hidden">
+      <h3>Xəstəxanalar</h3>
+      <div class="hosp-grid">
+        <div class="hospital">
+            <div class="hospital-thumb">
+                <img src="URL BURA" alt="New Hospitals Şəkli">
+            </div>
+            <div class="hospital-body">
+                <strong><i class="fas fa-hospital-alt"></i> Yeni Xəstəxanalar</strong>
+                <div class="small-meta"><strong>Ünvan:</strong> Tbilisi, Digomi Massivi</div>
+                <div class="small-meta"><strong>Telefon:</strong> +995 32 248 11 11</div>
+                <div class="small-meta">Təcili: <span class="emergency-number">112</span></div>
+                <div class="svc-tags">
+                    <span>Təcili yardım</span>
+                    <span>Cərrahiyyə</span>
+                    <span>Kardiologiya</span>
+                </div>
+            </div>
+            <div class="hospital-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/New+Hospitals')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+            </div>
+        </div>
+
+        <div class="hospital">
+            <div class="hospital-thumb">
+                <img src="URL BURA" alt="American Hospital Tbilisi Şəkli">
+            </div>
+            <div class="hospital-body">
+                <strong><i class="fas fa-hospital-alt"></i> American Hospital Tbilisi</strong>
+                <div class="small-meta"><strong>Ünvan:</strong> Tbilisi, S. Tsintsadze küç. 43</div>
+                <div class="small-meta"><strong>Telefon:</strong> +995 32 243 00 00</div>
+                <div class="small-meta">Təcili: <span class="emergency-number">112</span></div>
+                <div class="svc-tags">
+                    <span>Təcili yardım</span>
+                    <span>Diaqnostika</span>
+                    <span>Terapiya</span>
+                </div>
+            </div>
+            <div class="hospital-actions">
+                <button class="action-btn location" onclick="window.open('http://googleusercontent.com/maps/place/American+Hospital+Tbilisi')">
+                    <i class="fas fa-map-marker-alt"></i> Konum
+                </button>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="viza" class="tab-content hidden">
+      <h3>Viza və Sərhəd Məlumatları</h3>
+      <div class="viza-grid">
+        <div class="viza-card">
+          <h4><i class="fas fa-info-circle"></i> Viza Tələbləri</h4>
+          <ul class="list viza-list">
+            <li><strong>Tələb olunur:</strong> Xeyr (1 ilə qədər)</li>
+            <li><strong>Pasport müddəti:</strong> Etibarlılıq müddətinin sonuna qədər etibarlı olmalıdır</li>
+          </ul>
+        </div>
+
+        <div class="viza-card">
+          <h4><i class="fas fa-list-ol"></i> Giriş Prosesi</h4>
+          <ol class="list viza-list">
+            <li><strong>Sərhəddə:</strong> Pasport təqdim edin</li>
+            <li><strong>Qeyd:</strong> Daxil olduqdan sonra 1 ildən çox qala bilərsiniz</li>
+            <li><strong>Qeydiyyat:</strong> 30 gündən çox qalmaq üçün qeydiyyat lazımdır</li>
+          </ol>
+        </div>
+      </div>
+
+      <h4 style="margin-top:24px; font-size: 18px; color: #fff;">Lazımı Sənədlər</h4>
+      <div class="tag-container">
+        <div class="tag-item" style="border-bottom-color: var(--info);">
+          <strong>Pasport</strong>
+          <small>Etibarlı beynəlxalq pasport</small>
+        </div>
+        <div class="tag-item" style="border-bottom-color: var(--success);">
+          <strong>Bilet</strong>
+          <small>Geri dönüş bileti (tövsiyə olunur)</small>
+        </div>
+        <div class="tag-item" style="border-bottom-color: var(--warning);">
+          <strong>Sığorta</strong>
+          <small>Səyahət sığortası (tövsiyə)</small>
+        </div>
+      </div>
+
+      <h4 style="margin-top:24px; font-size: 18px; color: #fff;">Məsləhətlər</h4>
+      <ul class="list" style="margin-top: 12px;">
+        <li><span class="note-tag tag-ipucu">İpucu</span> Tiflisə gəliş Batumi və ya quru sərhədləri ilə daha ucuz ola bilər</li>
+        <li><span class="note-tag tag-meslehet">Məsləhət</span> Dağlıq ərazilərə gedərkən 4x4 avtomobil kirayələyin</li>
+        <li><span class="note-tag tag-diqqət">Diqqət</span> Yollarda sürət həddinə ciddi nəzarət edilir</li>
+      </ul>
+    </section>
+
+    <section id="neqliyat" class="tab-content hidden">
+      <h3>Nəqliyyat Məlumatları</h3>
+
+      <div class="transport-container">
+        <div class="transport-card">
+          <h4>İctimai Nəqliyyat (Tbilisi)</h4>
+          <ul class="list">
+            <li><strong>Metro:</strong> 1.00 GEL (Metromoney kartı)</li>
+            <li><strong>Avtobus:</strong> 1.00 GEL</li>
+            <li><strong>Marşrutka:</strong> 1.00 GEL</li>
+            <li><strong>Kart:</strong> Metromoney (həm metro, həm avtobus üçün)</li>
+          </ul>
+        </div>
+
+        <div class="transport-card">
+          <h4>Taksi Xidmətləri</h4>
+          <ul class="list">
+            <li><strong>Tətbiqlər:</strong> Bolt, Maxim, Yandex Go</li>
+            <li><strong>Başlanğıc:</strong> 2.00 – 3.00 GEL</li>
+            <li><strong>Km:</strong> 0.60 – 0.80 GEL</li>
+            <li><strong>Qeyd:</strong> Tətbiqlərdə qiymət müəyyəndir, rahatdır</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="transport-container" style="margin-top: 16px;">
+        <div class="transport-card">
+          <h4>Hava Limanı (Tbilisi)</h4>
+          <ul class="list">
+            <li><strong>Avtobus (№337):</strong> 1.00 GEL (Mərkəzə)</li>
+            <li><strong>Taksi (Tətbiq):</strong> 25 – 40 GEL (Şəhər mərkəzinə)</li>
+            <li><strong>Qatar:</strong> 4.00 GEL (Gündə 2 dəfə)</li>
+            <li><strong>Qeyd:</strong> Metromoney kartı ilə avtobus daha ucuzdur</li>
+          </ul>
+        </div>
+
+        <div class="transport-card">
+          <h4>Nəqliyyat Məsləhətləri</h4>
+          <ul class="list">
+            <li><strong>İpucu:</strong> Köhnə şəhərdə piyada gəzməyə üstünlük verin</li>
+            <li><strong>Məsləhət:</strong> Taksi sifariş edərkən Bolt və ya digər tətbiqləri istifadə edin</li>
+            <li><strong>Diqqət:</strong> Metromoney kartı BakıKart kimi istifadə edilir</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="dil" class="tab-content hidden">
+      <h3>Dil — Əsas ifadələr və tələffüz</h3>
+      <p style="color:var(--muted); text-align: center;">Hər sətirdə "Oxu" düyməsinə basaraq sözün tələffüzünü dinləyə bilərsiniz (Gürcü dilinə yaxın türk səsi istifadə olunur).</p>
+
+      <div id="vocabGridCards" class="vocab-grid-cards">
+        </div>
+    </section>
+
+    <section id="tehlukesizlik" class="tab-content hidden">
+      <h3>Təhlükəsizlik və Qanunlar</h3>
+
+      <div class="safety-layout">
+        <div class="safety-top">
+          <div class="safety-card-main">
+            <h4><i class="fas fa-phone-volume"></i> Təcili Nömrələr</h4>
+            <ul class="emergency-list">
+              <li>Ümumi Təcili (Polis, Yanğın, Tibb): <span class="emergency-number-box">112</span></li>
+              <li>Taksi (Bolt/Yandex): <span class="emergency-number-box" style="background: var(--info);">Tətbiq daxilində</span></li>
+            </ul>
+          </div>
+
+          <div class="safety-card-main">
+            <h4><i class="fas fa-gavel" style="color: var(--info);"></i> Yerli Qanunlar</h4>
+            <ul class="local-laws-list list">
+              <li>İctimai yerlərdə **siqaret çəkmək qadağandır**</li>
+              <li>Kilsələrə girərkən **örtülü geyim** vacibdir</li>
+              <li>**Narkotik maddələr** qəti qadağandır (Çox sərt cəzalar)</li>
+              <li>Xarici valyutada **ödəniş etmək qadağandır** (Yalnız GEL)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="safety-mid">
+          <div class="safety-mid-card">
+            <h4><i class="fas fa-user-shield"></i> Şəxsi Təhlükəsizlik</h4>
+            <ul class="list">
+              <li>Sənədlərin surətini saxlayın</li>
+              <li>Qiymətli əşyaları **göstərməyin** (Batumi və Tbilisi mərkəzi)</li>
+              <li>Gecə saatlarında ehtiyatlı olun</li>
+              <li>Tbilisi köhnə şəhərində **kiçik oğurluqlar** ola bilər</li>
+            </ul>
+          </div>
+
+          <div class="safety-mid-card" style="border-bottom-color: var(--info);">
+            <h4><i class="fas fa-wifi" style="color: var(--info);"></i> Rabitə</h4>
+            <ul class="list">
+              <li>Yerli sim kart alın (Magti və ya Geocell)</li>
+              <li>WiFi çox geniş yayılıb</li>
+              <li>**Oflayn xəritələr** yükləyin (Dağlıq regionlar üçün)</li>
+            </ul>
+          </div>
+
+          <div class="safety-mid-card" style="border-bottom-color: var(--warning);">
+            <h4><i class="fas fa-map-marker-alt" style="color: var(--warning);"></i> Yolgetirmə</h4>
+            <ul class="list">
+              <li>Tbilisidə **Metromoney** kartı alın (1 kart kifayətdir)</li>
+              <li>Qədim küçələrdə **piyada gəzin**</li>
+              <li>Yol kənarından taksi tutmayın, **tətbiq istifadə edin**</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="safety-bottom">
+          <h4>Diqqət: Ümumi Fırıldaqlar</h4>
+          <div class="fraud-grid">
+            <div class="fraud-item">
+              <strong>Taksi Fırıldaqları</strong>
+              <small>Sürücülər sayğac açmır, qiyməti əvvəldən razılaşın</small>
+            </div>
+            <div class="fraud-item">
+              <strong>Pul Dəyişmə</strong>
+              <small>Aeroportda və küçədə məzənnə çox pisdir, bankları istifadə edin</small>
+            </div>
+            <div class="fraud-item">
+              <strong>Restoran</strong>
+              <small>Gizli xidmət haqqı (10-18% bəzən hesabda olmur)</small>
+            </div>
+            <div class="fraud-item">
+              <strong>Qara Köçürülmə</strong>
+              <small>Qeyri-rəsmi turlar və ya taksilər daha baha olur</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>©Nicat Hüseynli - Müəllif Hüquqları qorunur - 2025</footer>
+  </div>
+  
+  <div id="detailsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">×</span>
+      <div class="modal-body">
+        <h3 id="modalTitle"></h3>
+        <p id="modalDescription"></p>
+        <button id="modalReserveBtn" class="reserve-btn" onclick="openReservationModalFromDetails()">Online Rezerv Et</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="reservationModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">×</span>
+      <div class="modal-body">
+        <h3 id="reservationTitle"></h3>
+        <p style="color: var(--warning);">Rezervasiya</p>
+        
+        <form id="reservationForm" class="reservation-form">
+            <input type="text" id="reserveName" placeholder="Ad Soyad" required>
+            <input type="email" id="reserveEmail" placeholder="Email ünvanı" required>
+            
+            <label for="reserveTime" style="color: var(--muted); font-size: 13px; margin-top: 5px;">Saat seçin (Məs: 19:30):</label>
+            <input type="text" id="reserveTime" placeholder="Saat daxil edin" required> 
+            
+            <select id="reserveGuests">
+                <option value="1">1 Nəfər</option>
+                <option value="2">2 Nəfər</option>
+                <option value="3">3 Nəfər</option>
+                <option value="4+">4+ Nəfər</option>
+            </select>
+            <input type="date" id="reserveDate" required>
+
+            <button type="submit" class="confirm-btn">Rezervasiyanı Göndər</button>
+            <div id="reservationMessage" style="display:none;">Rezerv qeydə alındı! Təşəkkür edirik.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const detailsModal = document.getElementById('detailsModal');
+    const reservationModal = document.getElementById('reservationModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const reservationTitle = document.getElementById('reservationTitle');
+    const modalReserveBtn = document.getElementById('modalReserveBtn');
+    const reservationForm = document.getElementById('reservationForm');
+    const reservationMessage = document.getElementById('reservationMessage');
+    const timeDisplay = document.getElementById('timeDisplay');
+    let currentReservationName = ''; // To hold the name for reservation
+
+    // ********* GÜRCÜSTAN SAATINI GÖSTƏRƏN FUNKSIYA (UTC+4) *********
+    function updateTurkeyTime() {
+        const now = new Date();
+        const azerbaijanOffset = 0; // Gürcüstan Bakı ilə eyni saat qurşağındadır
+        const azerbaijanTime = new Date(now.getTime() + azerbaijanOffset * 60 * 1000);
+        
+        const hours = azerbaijanTime.getHours().toString().padStart(2, '0');
+        const minutes = azerbaijanTime.getMinutes().toString().padStart(2, '0');
+        const seconds = azerbaijanTime.getSeconds().toString().padStart(2, '0');
+        
+        timeDisplay.textContent = `${hours}:${minutes}:${seconds} (UTC+4)`;
+    }
+    
+    // ********* TABS VƏ MODAL KEÇİDLƏRİ *********
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+    
+    // Tab switching function
+    tabs.forEach(tab=>{
+        tab.addEventListener('click', ()=>{
+            tabs.forEach(t=>t.classList.remove('active'));
+            tab.classList.add('active');
+            const target = tab.dataset.tab;
+            contents.forEach(c=>{
+                if(c.id === target) {
+                    c.style.opacity = '0';
+                    c.classList.remove('hidden');
+                    setTimeout(() => { c.style.opacity = '1'; }, 10);
+                }
+                else c.classList.add('hidden');
+            });
+            window.scrollTo({top:0,behavior:'smooth'});
+        });
+    });
+
+    // Close modal function
+    document.querySelectorAll('.close-btn').forEach(btn => {
+        btn.onclick = function() {
+            detailsModal.style.display = 'none';
+            reservationModal.style.display = 'none';
+            reservationMessage.style.display = 'none';
+            reservationForm.style.display = 'block';
+            reservationForm.reset();
+        }
+    });
+
+    // Function to open the main reservation modal
+    window.openReservationModal = function(name) {
+        currentReservationName = name;
+        reservationTitle.textContent = "Rezervasiya: " + name;
+        detailsModal.style.display = 'none'; // Close details if open
+        reservationModal.style.display = 'block';
+    }
+
+    // Function to handle opening the reservation modal from inside the Details modal (FIXED)
+    window.openReservationModalFromDetails = function() {
+        detailsModal.style.display = 'none';
+        reservationTitle.textContent = "Rezervasiya: " + modalTitle.textContent;
+        reservationModal.style.display = 'block';
+    }
+
+    // Open details/reservation modal logic (FIXED)
+    document.querySelectorAll('.details-open').forEach(btn => {
+        btn.onclick = function() {
+            const card = this.closest('.place-card') || this.closest('.hotel-card') || this.closest('.restaurant-card');
+            const name = card.dataset.name;
+            const info = card.dataset.info;
+            const type = this.dataset.type;
+
+            modalTitle.textContent = name;
+            modalDescription.textContent = info;
+            detailsModal.style.display = 'block';
+
+            // Show 'Online Rezerv Et' button for reservation types
+            if (type === 'reservation') { 
+                modalReserveBtn.style.display = 'inline-block';
+            } else {
+                modalReserveBtn.style.display = 'none';
+            }
+        };
+    });
+
+    // Reservation Form Submission Logic (FIXED)
+    reservationForm.onsubmit = function(event) {
+        event.preventDefault();
+        
+        // Hide form and show message
+        reservationForm.style.display = 'none';
+        
+        const itemName = reservationTitle.textContent.replace("Rezervasiya: ", "");
+                         
+        const selectedTime = document.getElementById('reserveTime').value;
+                         
+        reservationMessage.textContent = `Rezervasiyanız ("${itemName}") saat ${selectedTime} üçün qeydə alındı! Təşəkkür edirik.`;
+        reservationMessage.style.display = 'block';
+        
+        // Close modal after 3 seconds (simulation)
+        setTimeout(() => {
+            reservationModal.style.display = 'none';
+            reservationForm.style.display = 'block';
+            reservationMessage.style.display = 'none';
+            reservationForm.reset();
+        }, 3000);
+    };
+
+    // ********* DİL VƏ SƏS LOGİKASI (GÜRCÜ DİLİ KONTEKSTİ) *********
+    const vocabData = {
+      umumI: [
+        {az:'Salam',tr:'Gamarjoba (გამარჯობა)',pron:'/ga-mar-jo-ba/', cat:'ÜMUMİ'},
+        {az:'Sağ olun',tr:'Madloba (მადლობა)',pron:'/mad-lo-ba/', cat:'ÜMUMİ'},
+        {az:'Bəli',tr:'Diakh (დიახ)',pron:'/di-ax/', cat:'ÜMUMİ'},
+        {az:'Xeyr',tr:'Ara (არა)',pron:'/a-ra/', cat:'ÜMUMİ'},
+        {az:'Bağışlayın',tr:'Ukatsravad (უკაცრავად)',pron:'/u-ka-tsra-vad/', cat:'ÜMUMİ'},
+        {az:'Nə qədərdir?',tr:'Ra ghirs? (რა ღირს?)',pron:'/ra ğirs/', cat:'ÜMUMİ'},
+        {az:'Haradadır?',tr:'Sad aris? (სად არის?)',pron:'/sad a-ris/', cat:'ÜMUMİ'}
+      ],
+      yemek: [
+        {az:'Mən acam',tr:'Mshia (მშია)',pron:'/mşi-a/', cat:'YEMƏK'},
+        {az:'Su',tr:'Tsqali (წყალი)',pron:'/tsqa-li/', cat:'YEMƏK'},
+        {az:'Xaçapuri',tr:'Khachapuri (ხაჭაპური)',pron:'/xa-ça-pu-ri/', cat:'YEMƏK'},
+        {az:'Xinkali',tr:'Khinkali (ხინკალი)',pron:'/xin-ka-li/', cat:'YEMƏK'},
+        {az:'Hesab',tr:'Angarishi (ანგარიში)',pron:'/an-ga-ri-şi/', cat:'YEMƏK'},
+        {az:'Ləzzətli!',tr:'Gemrielia! (გემრიელია!)',pron:'/gem-ri-e-li-a/', cat:'YEMƏK'}
+      ],
+      yol: [
+        {az:'Taksi',tr:'Taksi (ტაქსი)',pron:'/tak-si/', cat:'NƏQLİYYAT'},
+        {az:'Metro',tr:'Metro (მეტრო)',pron:'/me-tro/', cat:'NƏQLİYYAT'},
+        {az:'Otel',tr:'Sastumro (სასტუმრო)',pron:'/sas-tum-ro/', cat:'NƏQLİYYAT'},
+        {az:'Hava limanı',tr:'Aeroporti (აეროპორტი)',pron:'/a-e-ro-por-ti/', cat:'NƏQLİYYAT'},
+        {az:'Sağa',tr:'Marjvniv (მარჯვნივ)',pron:'/marj-vniv/', cat:'NƏQLİYYAT'},
+        {az:'Sola',tr:'Mariskheniv (მარცხნივ)',pron:'/mar-cxni-v/', cat:'NƏQLİYYAT'}
+      ],
+      techili: [
+        {az:'Kömək edin!',tr:'Mishveliet! (მიშველეთ!)',pron:'/miş-ve-li-et/', cat:'TƏCİLİ'},
+        {az:'Polis',tr:'Politsia (პოლიცია)',pron:'/po-li-tsi-a/', cat:'TƏCİLİ'},
+        {az:'Xəstəxana',tr:'Saavadmqopo (საავადმყოფო)',pron:'/saa-vad-mqo-po/', cat:'TƏCİLİ'},
+        {az:'Təcili',tr:'Sastsrapo (სასწრაფო)',pron:'/sas-tsra-po/', cat:'TƏCİLİ'}
+      ]
+    };
+    
+    // Dil kartlarının yaradılması (TÜRİYƏ HTML-dəki kimi)
+    const vocabGridCards = document.getElementById('vocabGridCards');
+
+    const allVocab = [
+      ...vocabData.umumI,
+      ...vocabData.yemek,
+      ...vocabData.yol,
+      ...vocabData.techili
+    ];
+
+    allVocab.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'vocab-card';
+      const textToSpeak = item.tr.split('(')[0].trim();
+      
+      card.innerHTML = `
+        <div class="vocab-item-group">
+            <small>${item.az}</small>
+            <strong>${item.tr}</strong>
+            <small>${item.pron}</small>
+        </div>
+        <div class="vocab-item-group vocab-tr-section">
+            <div class="vocab-category">${item.cat}</div>
+            <button class="vocab-play-btn" data-text="${textToSpeak}" title="Tələffüzü dinlə">
+                <i class="fas fa-volume-up"></i> Oxu
+            </button>
+        </div>
+      `;
+      vocabGridCards.appendChild(card);
+    });
+    // ********* SƏS TƏLƏFFÜZÜ FUNKSİYASI *********
+    function speak(text){
+      if(!('speechSynthesis' in window)) return alert('Təəssüf ki, brauzeriniz səs çıxarma funksiyasını dəstəkləmir.');
+      
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.95;
+      u.pitch = 1.0;
+      
+      const voices = speechSynthesis.getVoices();
+      
+      // Gürcü səsi olmadıqda, Türkiyə səsi istifadə olunur (ən yaxın)
+      let preferredVoice = voices.find(v => v.lang.toLowerCase().startsWith('ka'));
+      
+      if (!preferredVoice) {
+         preferredVoice = voices.find(v => v.lang.toLowerCase().startsWith('tr'));
+      }
+      
+      u.voice = preferredVoice || voices[0];
+      u.lang = 'ka-GE'; // Gürcü dil kodu
+      
+      speechSynthesis.cancel();
+      speechSynthesis.speak(u);
+    }
+
+    document.addEventListener('click', (e)=>{
+      if(e.target && e.target.classList.contains('vocab-play-btn')){
+        const t = e.target.getAttribute('data-text');
+        if(t) speak(t);
+      }
+    });
+
+    // Initial calls
+    updateTurkeyTime();
+    setInterval(updateTurkeyTime, 1000);
+    
+  </script>
+</body>
+</html>

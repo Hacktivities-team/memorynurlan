@@ -1,0 +1,73 @@
+/* ===== DARK MODE GENERAL ===== */
+body {
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#121212;
+    color:#eee;
+}
+header {
+    background:#1f1f1f;
+    color:#fff;
+    padding:12px 0;
+    text-align:center;
+}
+h1 { margin:0; font-size:22px; }
+
+/* ===== STATISTICS BOXES ===== */
+.stats {
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    margin:15px auto;
+    max-width:1200px;
+}
+.stat-box {
+    background:#1e1e2f;
+    padding:12px;
+    margin:6px;
+    border-radius:10px;
+    width:220px;
+    text-align:center;
+    box-shadow:0 2px 6px rgba(0,0,0,0.5);
+}
+.stat-box span { font-size:20px; font-weight:bold; display:block; margin-bottom:6px; }
+
+/* ===== CARDS ===== */
+.container { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin:10px auto; max-width:1200px; }
+.card {
+    background:#1e1e2f;
+    border-radius:10px;
+    width:300px;
+    overflow:hidden;
+    transition:transform 0.3s;
+}
+.card:hover { transform:scale(1.03); }
+.card img { width:100%; height:200px; object-fit:cover; }
+.card-content { padding:12px; }
+.card-content h3 { margin:0 0 6px; }
+.card-content p { margin:4px 0; font-size:14px; }
+.card-footer { background:#2c2c3c; padding:8px; text-align:center; }
+.card-footer button { padding:6px 12px; border-radius:6px; border:none; background:#06b6d4; color:#fff; cursor:pointer; }
+.card-footer button:hover { background:#0284c7; }
+
+/* ===== TABS ===== */
+.tabs { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
+.tab { padding:6px 10px; background:#2c2c3c; border-radius:6px; cursor:pointer; font-weight:bold; color:#ccc; }
+.tab.active { background:#06b6d4; color:#fff; }
+
+/* ===== TAB CONTENT ===== */
+.content { background:#1e1e2f; border-radius:8px; padding:12px; box-shadow:0 2px 8px rgba(0,0,0,0.2); }
+.places .place { margin-bottom:10px; }
+.food-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); gap:10px; margin-top:6px; }
+.food-card { background:#2c2c3c; border-radius:8px; text-align:center; overflow:hidden; }
+.food-card img { width:100%; height:80px; object-fit:cover; display:block; }
+.food-card div { padding:4px; font-size:13px; }
+
+/* ===== CURRENCY ===== */
+.converter { margin-top:12px; padding:10px; border-radius:8px; background:#2c2c3c; }
+.converter input, .converter select { width:100%; padding:6px; margin-top:4px; border-radius:6px; border:1px solid #444; background:#121212; color:#eee; }
+.result { margin-top:6px; font-weight:600; }
+
+/* ===== VOCAB ===== */
+.vocab .word { display:flex; justify-content:space-between; align-items:center; padding:6px; border-radius:6px; background:#2c2c3c; margin-bottom:4px; font-size:13px; }
+.play { cursor:pointer; border:none; background:#06b6d4; color:#fff; border-radius:4px; padding:3px 6px; }

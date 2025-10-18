@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tourism Helper — By Hacktivities</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    :root{
+        --bg:#071226;
+        --card:#0b1420;
+        --muted:#9aa4b2;
+        --accent:#06b6d4;
+        --primary-color:#3b82f6;
+        --success-color:#10b981;
+        --danger-color:#ef4444;
+        --warning-color:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#05101a,#081827);color:#e6eef6;padding:18px}
+    .wrap{max-width:1100px;margin:0 auto}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#7c3aed);display:flex;align-items:center;justify-content:center;color:#02111a;font-weight:800}
+    h1{margin:0;font-size:24px}
+    .meta{color:var(--muted);font-size:13px}
+    .header-nav{display:flex;align-items:center;gap:10px}
+    .nav-item{background:var(--card);padding:8px 12px;border-radius:8px;color:var(--muted);text-decoration:none;font-size:14px;transition:0.2s;display:flex;align-items:center;gap:5px}
+    .nav-item:hover{background:rgba(255,255,255,0.1);color:#fff}
+    .nav-item.active{background:var(--primary-color);color:#fff;font-weight:600}
+    .nav-item.currency{background:var(--success-color)}
+    .nav-item.currency:hover{background:#14cd99}
+    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:30px}
+    .info-card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;text-align:center;border-bottom:3px solid transparent;transition:0.2s}
+    .info-card:hover{transform:translateY(-2px)}
+    .info-icon{font-size:30px;margin-bottom:10px}
+    .info-card strong{font-size:20px;margin-bottom:5px}
+    .info-card small{color:var(--muted);font-size:13px}
+    .converter{background:var(--card);padding:30px;border-radius:12px;margin-bottom:20px;box-shadow:0 6px 18px rgba(0,0,0,0.5);border:1px solid #1a1a1a}
+    .converter h3{margin-top:0;margin-bottom:20px;font-size:24px;color:var(--accent);text-align:center}
+    .converter-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;align-items:end}
+    .input-group{display:flex;flex-direction:column}
+    .converter label{margin-bottom:8px;font-size:14px;color:var(--muted);text-align:left}
+    .converter select,.converter input{width:100%;padding:12px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:inherit;font-size:16px}
+    .result{margin-top:20px;font-weight:700;font-size:22px;text-align:center;color:var(--warning-color);padding:10px;border:1px solid var(--warning-color);border-radius:8px}
+    footer{margin-top:24px;color:var(--muted);text-align:center}
+    @media(max-width:900px){.converter-fields{grid-template-columns:1fr}.header-nav{flex-wrap:wrap;justify-content:center}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="logo">TH</div>
+        <div>
+          <h1>Tourism Helper</h1>
+          <div class="meta">Powered by Hacktivities</div>
+        </div>
+      </div>
+      <div class="header-nav">
+        <a href="azerbaijan.html" class="nav-item">🇦🇿 Azerbaijan</a>
+        <a href="turkiye.html" class="nav-item">🇹🇷 Turkey</a>
+        <a href="georgia.html" class="nav-item">🇬🇪 Georgia</a>
+        <a href="russia.html" class="nav-item">🇷🇺 Russia</a>
+        <a href="uea.html" class="nav-item">🇦🇪 UAE</a>
+        <a href="#converter" class="nav-item currency"><i class="fas fa-exchange-alt"></i> Converter</a>
+      </div>
+    </header>
+
+    <div class="info-grid">
+      <div class="info-card" style="border-bottom-color:var(--danger-color)">
+        <div class="info-icon" style="color:var(--danger-color)"><i class="fas fa-passport"></i></div>
+        <strong>60% Experience Visa Delays</strong>
+        <small>Many tourists face delays due to improper visa procedures or lacking documentation.</small>
+      </div>
+      <div class="info-card" style="border-bottom-color:var(--primary-color)">
+        <div class="info-icon" style="color:var(--primary-color)"><i class="fas fa-language"></i></div>
+        <strong>45% Face Language Barrier</strong>
+        <small>Learning a few local phrases can greatly improve the experience.</small>
+      </div>
+      <div class="info-card" style="border-bottom-color:var(--warning-color)">
+        <div class="info-icon" style="color:var(--warning-color)"><i class="fas fa-car-side"></i></div>
+        <strong>70% Concerned about Transport</strong>
+        <small>High taxi costs and lack of clear routes cause stress. Plan ahead.</small>
+      </div>
+      <div class="info-card" style="border-bottom-color:var(--success-color)">
+        <div class="info-icon" style="color:var(--success-color)"><i class="fas fa-hospital"></i></div>
+        <strong>38% Lack Health Info</strong>
+        <small>Keep emergency numbers (112) and hospital info handy.</small>
+      </div>
+    </div>
+
+    <div class="converter" id="converter">
+      <h3>Currency Converter</h3>
+      <div class="converter-fields">
+        <div class="input-group">
+          <label>Conversion Direction</label>
+          <select id="direction">
+            <option value="toAZN">X → AZN</option>
+            <option value="fromAZN">AZN → X</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Amount</label>
+          <input type="number" id="amount" placeholder="E.g., 100" />
+        </div>
+        <div class="input-group">
+          <label>Select Currency</label>
+          <select id="rateSelect"></select>
+        </div>
+      </div>
+      <div id="converted" class="result">Enter an amount to convert.</div>
+    </div>
+
+    <footer>Developed by Nicat Hüseynli © All Rights Reserved - 2025</footer>
+  </div>
+
+  <script>
+    const rates = {
+      USD: 0.59, TRY: 24.53, RUB: 48.28, AED: 2.16, GEL: 1.59, EUR: 0.50, GBP: 0.44, JPY: 88.89, CHF: 0.47,
+      INR: 52.20, CNY: 4.19, CAD: 0.82, AUD: 0.89, BRL: 3.14, MXN: 10.81, NZD: 1.01, YER: 140.59, EGP: 27.97,
+      SGD: 0.76, ZAR: 10.12, PKR: 165.44, KRW: 831.38, THB: 19.10, SAR: 2.21, QAR: 2.14, KWD: 0.18, IDR: 9759.40,
+      BDT: 71.66, NOK: 5.86, SEK: 5.52, DKK: 3.76, VND: 15508.81, OMR: 0.23, JOD: 0.42, BHD: 0.22, NPR: 83.55,
+      LAK: 12747.06, MMK: 247.65, IQD: 770.59, LYD: 3.19, SDG: 353.82, AFN: 40.29, ALL: 48.60, AMD: 225.08,
+      AOA: 539.41, ARS: 841.03, AWG: 1.06, AZN: 1.0
+    };
+
+    const rateSelect = document.getElementById('rateSelect');
+    Object.entries(rates).forEach(([code]) => {
+      const option = document.createElement('option');
+      option.value = rates[code];
+      option.dataset.name = code;
+      option.textContent = code;
+      rateSelect.appendChild(option);
+    });
+
+    const amount = document.getElementById('amount');
+    const converted = document.getElementById('converted');
+    const direction = document.getElementById('direction');
+
+    function convert(){
+      const val = Number(amount.value || 0);
+      const rate = Number(rateSelect.value);
+      const currencyName = rateSelect.options[rateSelect.selectedIndex]?.dataset.name || "";
+      let result = 0;
+
+      if(!val || !rate){
+        converted.textContent="Enter an amount to convert.";
+        return;
+      }
+
+      if(direction.value === 'toAZN'){
+        result = Math.round((val / rate) * 100) / 100;
+        converted.textContent = `${val} ${currencyName} ≈ ${result} AZN`;
+      } else {
+        result = Math.round((val * rate) * 100) / 100;
+        converted.textContent = `${val} AZN ≈ ${result} ${currencyName}`;
+      }
+    }
+
+    amount.addEventListener('input', convert);
+    rateSelect.addEventListener('change', convert);
+    direction.addEventListener('change', convert);
+  </script>
+</body>
+</html>
